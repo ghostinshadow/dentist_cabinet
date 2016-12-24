@@ -1,0 +1,25 @@
+clients
+
+lastname:string
+firstname:string
+doctor_id:integer(dictionary)
+milk_teeth:boolean default false
+birth_day:date
+town_id:integer(dictionary)
+telephone_number:string
+folder_name:string
+first_char:string ?
+
+appointments
+
+creationTime:date
+clients:reference
+
+performed_works
+
+appointment:reference
+work_type_id:integer
+exact_work_id:integer
+teeth_nums:text
+price:float
+
