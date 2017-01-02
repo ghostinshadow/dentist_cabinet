@@ -1,0 +1,25 @@
+%h1 Listing dictionaries
+
+%table
+  %thead
+    %tr
+      %th User
+      %th Title
+      %th Resource type
+      %th
+      %th
+      %th
+
+  %tbody
+    - @dictionaries.each do |dictionary|
+      %tr
+        %td= dictionary.user_id
+        %td= dictionary.title
+        %td= dictionary.resource_type
+        %td= link_to 'Show', dictionary
+        %td= link_to 'Edit', edit_dictionary_path(dictionary)
+        %td= link_to 'Destroy', dictionary, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Dictionary', new_dictionary_path

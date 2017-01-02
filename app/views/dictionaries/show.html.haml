@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b User:
+  = @dictionary.user_id
+%p
+  %b Title:
+  = @dictionary.title
+%p
+  %b Resource type:
+  = @dictionary.resource_type
+
+= link_to 'Edit', edit_dictionary_path(@dictionary)
+\|
+= link_to 'Back', dictionaries_path

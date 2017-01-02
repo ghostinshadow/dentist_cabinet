@@ -12,5 +12,17 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require twitter/bootstrap
 //= require turbolinks
-//= require_tree .
+//= require angular
+//= require angular-animate
+//= require angular-resource
+//= require angular-route
+//= require angular-touch
+//= require simplePagination
+//= require app
+//= require controllers/formController
+//= require controllers/mainController
+//= require controllers/navController
+
+

@@ -10,6 +10,12 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- *= require_tree .
+ *= require bootstrap_and_overrides
+ *= require jquery-ui
+ *= require pass_styles
+ *= require photos
+ *= require scaffolds
+ *= require style
+ *= require words
  *= require_self
  */
