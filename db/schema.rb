@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161227210331) do
+ActiveRecord::Schema.define(version: 20170103143318) do
 
   create_table "appointments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.date     "creation_time"
@@ -30,16 +30,18 @@ ActiveRecord::Schema.define(version: 20161227210331) do
   end
 
   create_table "patients", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "last_name",  limit: 100
-    t.string   "first_name", limit: 100
+    t.string   "last_name",        limit: 100
+    t.string   "first_name",       limit: 100
     t.integer  "user_id"
     t.integer  "doctor_id"
     t.boolean  "milk_teeth"
     t.date     "birth_day"
     t.integer  "town_id"
     t.string   "telephone"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.string   "email",            limit: 50
+    t.string   "backup_telephone", limit: 20
     t.index ["doctor_id"], name: "index_patients_on_doctor_id", using: :btree
     t.index ["town_id"], name: "index_patients_on_town_id", using: :btree
     t.index ["user_id"], name: "index_patients_on_user_id", using: :btree

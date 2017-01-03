@@ -22,6 +22,8 @@ json_data_representation.each do |patient|
                     milk_teeth: (patient["milkTeeth"] == "Є") ? true : false,
                     birth_day: Date.parse(patient["birthDay"]),
                     telephone: patient["telNumber1"],
+                    backup_telephone: patient["telNumber2"],
+                    email: patient['email'],
                     doctor_id: doctor_word.id,
                     town_id: town_word.id)
   patient["appointments"].each do |appoint|

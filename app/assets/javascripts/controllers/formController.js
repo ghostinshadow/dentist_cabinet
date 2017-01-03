@@ -1,6 +1,6 @@
 var myClinic = angular.module("myClinic");
 
-myClinic.controller("FormController", function($scope, $interpolate, $timeout, $location) {
+myClinic.controller("FormController", function($scope, $interpolate, $timeout, $location, UserService) {
 
     $scope.folderName = $interpolate('img/{{surname}}_{{name}}');
 
@@ -25,7 +25,7 @@ myClinic.controller("FormController", function($scope, $interpolate, $timeout, $
 
     $scope.filesChanged = function(elm) {
         var count, len = elm.files.length;
-        ((elm.files.length > 1)) ? count = len : count = 1;
+        ((elm.files.length > 1)) ? count = len: count = 1;
         $timeout(function() {
             $scope.files = elm.files;
             if (len > 0) {
@@ -51,7 +51,8 @@ myClinic.controller("FormController", function($scope, $interpolate, $timeout, $
 
     $scope.writeFile = function(name, path, data) {
         fs.writeFile(path + '/' + name,
-            data, function(err) {
+            data,
+            function(err) {
                 if (err) throw err;
             }
         )
@@ -75,26 +76,22 @@ myClinic.controller("FormController", function($scope, $interpolate, $timeout, $
         }, 500, true);
     };
 
-    $scope.submitForm = function(client) {
-        client['folderName'] = $scope.folderName({
-            surname: client.surname,
-            name: client.name
-        });
-
-        client['firstChar'] = client.surname.charAt(0).toUpperCase();
-        client['appointments'] = [];
-
-        db.clients.save(client, function(error) {
-            console.log(error);
-        });
-
-        $scope.goHomeAndSelect(client, true);
-
-        fs.mkdir($scope.folderName({
-            surname: client.surname,
-            name: client.name
-        }), function(error) {
-            console.log(error);
-        });
+    $scope.submitForm = function(patient) {
+        patient = patient || {}
+        UserService.post_patient_info({
+            patient: patient
+        }, function(response) {
+            if (response.data["errors"]) {
+                $scope.parseErrorsFromResponse(response);
+            } else {
+                $scope.goHomeAndSelect(patient, true);
+            }
+        })
     };
+
+    $scope.parseErrorsFromResponse = function(response) {
+        angular.forEach(response.data["errors"], function(message, key) {
+            $scope.form[key].$dirty = true
+        })
+    }
 });

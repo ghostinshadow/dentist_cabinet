@@ -5,7 +5,7 @@
 	<h1 class='custom'>Результат пошуку<h1>
 	<h3 ng-show='isEmpty()' class='custom'>За заданим критерієм не знайдено жодного запису</h3>
 	<ul class='list-group'>
-		<li class="list-group-item custom" ng-repeat ='client in (clients | orderBy:"surname" | filter: search) track by $index' ng-class='{active: isSelectedPatient(client)}' ng-click='selectPatient(client)'><h3>{{client.surname}} {{client.name}}</h3></li>
+		<li class="list-group-item custom" ng-repeat ='client in (clients | orderBy:"surname" | filter: search) track by $index' ng-class='{active: isSelectedPatient(client)}' ng-click='selectPatient(client)'><h3>{{client.last_name}} {{client.first_name}}</h3></li>
 	</ul>
 </div>
 <div class="col-sm-10" ng-if='selectedPatient'>
@@ -173,10 +173,10 @@
 		</div>
 		<div class=' col-sm-6 float-right'>
 			<ul class=' teeth'>
-				<img  ng-repeat ='num in up_teeth_num' ng-click='findWorkOnTooth(num)' ng-src="img/tech/teeth_img/{{num}}.png" ng-class='{healed: isBeenHealed(num), active: isSelectedTooth(num)}'/>
+				<img  ng-repeat ='num in up_teeth_num' ng-click='findWorkOnTooth(num)' ng-src="assets/teeth_img/{{num}}.png" ng-class='{healed: isBeenHealed(num), active: isSelectedTooth(num)}'/>
 			</ul>
 			<ul class=' teeth bottom '>
-				<img  ng-repeat ='num in bottom_teeth_num'  ng-click='findWorkOnTooth(num)' ng-src="img/tech/teeth_img/{{num}}.png" ng-class='{healed: isBeenHealed(num), active: isSelectedTooth(num)}'/>
+				<img  ng-repeat ='num in bottom_teeth_num'  ng-click='findWorkOnTooth(num)' ng-src="assets/teeth_img/{{num}}.png" ng-class='{healed: isBeenHealed(num), active: isSelectedTooth(num)}'/>
 			</ul>
 		</div>
 		<div ng-if='selectedPatient.milkTeeth === "Є"' class='col-sm-6 float-right'>

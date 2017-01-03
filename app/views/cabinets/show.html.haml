@@ -2,14 +2,14 @@
   .col-sm-offset-1.col-sm-10
     .navbar-header
       .col-sm-1
-        %button.navbar-brand{"ng-click" => "go(\"/main\",true)", "ng-disabled" => "ifHome()"}
+        %button.navbar-brand{"ng-click" => "go('/home',true)"}
           %span.glyphicon.glyphicon-home
       %form.navbar-form.navbar-left.col-sm-2.main_page{"ng-show" => "selectedChar", :role => "search"}
         .form-group
           %input.form-control.input-lg{"ng-model" => "search", :placeholder => "Пошук стосовно літери", :type => "search"}/
     .nav.navbar-nav.pull-right
       .navbar-header.navbar-right
-        %button.navbar-brand{"ng-click" => "go(\"/createForm\", true)", "ng-disabled" => "ifHome()"}
+        %button.navbar-brand{"ng-click" => "go('/createForm', true)"}
           %span.glyphicon.glyphicon-plus
           %span.glyphicon.glyphicon-user
-%div{"ng-view" => ""}P
+%div{"ng-view" => ""}

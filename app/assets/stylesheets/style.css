@@ -277,3 +277,18 @@ outline: none;
 border: 0;
 background: transparent;
 }
+
+.error-placeholder{
+	height: 18px;
+}
+.animate.ng-enter, .animate.ng-leave {
+	transition: 2000ms linear all;
+}
+
+.animate.ng-leave.ng-leave-active {
+	opacity: 0;
+}
+
+.animate.ng-enter.ng-enter-active {
+	opacity: 1;
+}

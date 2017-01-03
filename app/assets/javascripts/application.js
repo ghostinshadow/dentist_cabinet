@@ -21,6 +21,7 @@
 //= require angular-touch
 //= require simplePagination
 //= require app
+//= require services/resources_fetcher
 //= require controllers/formController
 //= require controllers/mainController
 //= require controllers/navController

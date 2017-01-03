@@ -1,36 +1,6 @@
 var myClinic = angular.module("myClinic");
 
-myClinic.controller("NavController", function($scope, $location, $q, $timeout, Pagination) {
-
-    $scope.getAccessToDb = function(password) {
-        fs.readFile('storage/tech.txt', function(err, data) {
-            if (SHA3(password).toString() === data.toString().substr(0, 128)) {
-                encryptor.decryptFile('storage/encrypted.dat', 'storage/clients.json', password, options, function(err) {
-                    if (err) {
-                        throw err;
-                    } else {
-                        $scope.key = password;
-                        $timeout(function() {
-                            $scope.message = 'Спасибі) Гарного дня!';
-                        }, 0);
-                        db = db.connect('storage', ['clients']);
-                        $timeout(function() {
-                            $scope.go('main', false)
-                        }, 3000);
-                    }
-                });
-            } else {
-                $timeout(function() {
-                            $scope.message = 'Спробуйте ввести пароль ще раз';
-                        }, 0);
-                $timeout(function() {
-                    $scope.message = null;
-                    $scope.owner.password = '';
-                    $scope.go('home', false)
-                }, 2000);
-            }
-        })
-    };
+myClinic.controller("NavController", function($scope, $location, $timeout, Pagination, UserService) {
 
     $scope.go = function(path, clear) {
         $location.path(path);
@@ -65,10 +35,6 @@ myClinic.controller("NavController", function($scope, $location, $q, $timeout, P
                 }
             });
     }
-
-    $scope.ifHome = function(){
-        return ($location.path() === '/home') ? true : false;
-    };
 
     $scope.winMaximize = function() {
         if (win.isMaximized)
@@ -144,14 +110,14 @@ myClinic.controller("NavController", function($scope, $location, $q, $timeout, P
         }
     };
 
-    $scope.defer = function(char) {
-        var q = $q.defer();
+    // $scope.defer = function(char) {
+    //     var q = $q.defer();
 
-        q.resolve(db.clients.find({
-            firstChar: char
-        }));
-        return q.promise
-    };
+    //     q.resolve(db.clients.find({
+    //         firstChar: char
+    //     }));
+    //     return q.promise
+    // };
 
     $scope.clearTemp = function() {
         $scope.newClient = null;
@@ -290,7 +256,6 @@ myClinic.controller("NavController", function($scope, $location, $q, $timeout, P
         $scope.selectedPatient.appointments.push(appointment);
 
         $scope.updateAppoint(client);
-        debugger;
         $timeout(function() {
             $scope.selectAppointment(appointment);
             $scope.paginationManage();
@@ -305,14 +270,12 @@ myClinic.controller("NavController", function($scope, $location, $q, $timeout, P
     };
 
     $scope.findInDatabase = function(char, refresh) {
-        $scope.defer(char).then(function(data) {
-            $scope.clients = data;
+         UserService.get_patients_by_character(char, function(response) {
+            $scope.clients = response.data;
             $scope.selectedChar = char;
             if (refresh) {
                 $scope.selectedPatient = null;
             }
-        }, function(err) {
-            console.log(err);
         });
     };
 

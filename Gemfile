@@ -26,6 +26,8 @@ gem "haml-rails", "~> 0.9"
 gem 'devise'
 gem 'angularjs-rails'
 gem 'twitter-bootstrap-rails'
+gem 'angular_rails_csrf'
+
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'

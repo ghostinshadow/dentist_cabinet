@@ -4,15 +4,15 @@ myClinic.config(["$routeProvider",
     function($routeProvider) {
         $routeProvider.                          
         when("/home", {
-            templateUrl: "view/main.html",
+            templateUrl: "assets/main.html",
             controller: "MainController"
         }).
         when("/createForm", {
-            templateUrl: "view/formCreate.html",
+            templateUrl: "assets/formCreate.html",
             controller: "FormController"
         }).
         when("/photoGallery", {
-            templateUrl: "view/photoGallery.html",
+            templateUrl: "assets/photoGallery.html",
             controller: "FormController"
         }).
         otherwise({
