@@ -281,14 +281,14 @@ background: transparent;
 .error-placeholder{
 	height: 18px;
 }
-.animate.ng-enter, .animate.ng-leave {
-	transition: 2000ms linear all;
+.animate.ng-hide{
+	transition: 500ms linear all;
 }
 
-.animate.ng-leave.ng-leave-active {
+.animate.ng-hide.ng-hide-active {
 	opacity: 0;
 }
 
-.animate.ng-enter.ng-enter-active {
+/*.animate.ng-enter.ng-enter-active {
 	opacity: 1;
-}
+}*/

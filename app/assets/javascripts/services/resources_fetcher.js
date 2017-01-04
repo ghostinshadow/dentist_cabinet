@@ -5,6 +5,7 @@ angular.module('myClinic')
 
         service.get_patients_by_character = get_patients;
         service.post_patient_info = post_patient;
+        service.get_patient_creation_dictionaries = get_doctors_and_cities_info;
         return service;
 
         function params_constructor(url, additional_params, method){
@@ -44,6 +45,10 @@ angular.module('myClinic')
             }, handle_error);
         };
 
+        function get_doctors_and_cities_info(callback){
+            get_request = params_constructor("/dictionaries/doctors_and_cities")
+            return $http(get_request).then(function(response){ callback(response)}, handle_error)
+        }
 
         function merge(one, two) {
             for (var p in two) {

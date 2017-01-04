@@ -8,10 +8,9 @@ class PatientsController < ApplicationController
   end
 
   def create
-  	binding.pry
     @patient = current_user.patients.create(patient_params)
     if @patient.new_record?
-    	render json: { errors: @patient.errors}
+      render json: { errors: @patient.errors}
     else
       render json: @patient
     end

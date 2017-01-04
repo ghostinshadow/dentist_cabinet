@@ -1,5 +1,6 @@
 class DictionariesController < ApplicationController
   before_action :set_dictionary, only: [:show, :edit, :update, :destroy]
+  respond_to :json, only: [:doctors_and_cities]
 
   # GET /dictionaries
   # GET /dictionaries.json
@@ -59,6 +60,12 @@ class DictionariesController < ApplicationController
       format.html { redirect_to dictionaries_url, notice: 'Dictionary was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def doctors_and_cities
+    doctor_dict, cities_dict = current_user.dictionaries.where(resource_type: ["Doctors", "Cities"])
+    render json: {doctors: doctor_dict.words.select(:id, :body),
+                  cities: cities_dict.words.select(:id, :body)}
   end
 
   private

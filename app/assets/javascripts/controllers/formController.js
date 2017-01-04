@@ -6,6 +6,7 @@ myClinic.controller("FormController", function($scope, $interpolate, $timeout, $
 
     $scope._Index = 0;
 
+
     $scope.isActive = function(index) {
         return $scope._Index === index;
     };
@@ -94,4 +95,21 @@ myClinic.controller("FormController", function($scope, $interpolate, $timeout, $
             $scope.form[key].$dirty = true
         })
     }
+
+    $scope.fetchValuesForDropdowns = function(){
+        UserService.get_patient_creation_dictionaries(function(response){
+            $scope.doctors = response.data.doctors;
+            $scope.towns = response.data.cities;
+            // $scope.doctors = {
+            //     availableOptions: response.data.doctors,
+            //     selectedOption: response.data.doctors[0]
+            // };
+            // $scope.towns = {
+            //     availableOptions: response.data.cities,
+            //     selectedOption: response.data.cities[0]
+            // };
+        })
+    }
+
+    $scope.fetchValuesForDropdowns();
 });

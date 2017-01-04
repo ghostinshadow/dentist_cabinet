@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   resources :words
-  resources :dictionaries
+  resources :dictionaries do
+  	collection do
+  		get :doctors_and_cities
+  	end
+  end
   resources :patients
   devise_for :users
   root "cabinets#show"
