@@ -1,6 +1,6 @@
 var myClinic = angular.module("myClinic");
 
-myClinic.controller("FormController", function($scope, $interpolate, $timeout, $location, UserService) {
+myClinic.controller("FormController", function($scope, $interpolate, $timeout, $location, UserService, Flash) {
 
     $scope.folderName = $interpolate('img/{{surname}}_{{name}}');
 
@@ -84,8 +84,10 @@ myClinic.controller("FormController", function($scope, $interpolate, $timeout, $
         }, function(response) {
             if (response.data["errors"]) {
                 $scope.parseErrorsFromResponse(response);
+                Flash.create('info', "Дані не вдалось надіслати")
             } else {
                 $scope.goHomeAndSelect(patient, true);
+                Flash.create('success',"Запис успішно додано")
             }
         })
     };
@@ -114,16 +116,6 @@ myClinic.controller("FormController", function($scope, $interpolate, $timeout, $
       });
       ngModel.$formatters.push(function(val) {
         return '' + val;
-      });
-    }
-  };
-})
-.directive('convertToBool', function() {
-  return {
-    require: 'ngModel',
-    link: function(scope, element, attrs, ngModel) {
-      ngModel.$parsers.push(function(val) {
-        return val ? "1" : "0"; 
       });
     }
   };

@@ -27,17 +27,14 @@
 
 myClinic.controller("MainController",
 
-    function($scope) {
+    function($scope, UserService, Flash) {
 
         $scope.deletePatient = function(patient) {
             if (confirm("Ви впевнені, що хочете видалити цей запис?")) {
-                db.clients.remove({
-                    _id: patient._id
-                }, false, function(error) {
-                    console.log(error);
-                });
-                fs.rmdirSync(patient['folderName']);
+               UserService.delete_patient(patient, function(response){
+                Flash.create('success',"Запис успішно видалено")                
                 $scope.findInDatabase(patient.firstChar);
+               })
             }
         };
 

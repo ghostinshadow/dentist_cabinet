@@ -17,5 +17,6 @@
  *= require scaffolds
  *= require style
  *= require words
+ *= require angular-flash
  *= require_self
  */

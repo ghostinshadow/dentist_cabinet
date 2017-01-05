@@ -1,5 +1,6 @@
 class PatientsController < ApplicationController
   respond_to :json
+  # add cancan
 
   def index
     # Patient.with_user(current_user.id)
@@ -14,6 +15,21 @@ class PatientsController < ApplicationController
     else
       render json: @patient
     end
+  end
+
+  def update
+    @patient = Patient.find(params[:id])
+    if @patient.update(patient_params)
+      render json: @patient
+    else
+      render json: {errors: @patient.errors}
+    end
+
+  end
+
+  def destroy
+    @patient = Patient.find(params[:id])
+    @patient.destroy
   end
 
   private

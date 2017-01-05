@@ -1,4 +1,5 @@
-var myClinic = angular.module('myClinic', ['ngResource', 'ngRoute', 'simplePagination','ngAnimate', 'ngTouch']);
+var myClinic = angular.module('myClinic', ['ngResource', 'ngRoute',
+ 'simplePagination','ngAnimate', 'ngTouch', "ngFlash"]);
 
 myClinic.config(["$routeProvider",
     function($routeProvider) {
@@ -24,4 +25,9 @@ myClinic.filter('reverse', function() {
   return function(items) {
     return items.slice().reverse();
   };
+});
+
+myClinic.config((FlashProvider) => {
+    FlashProvider.setTimeout(5000);
+    FlashProvider.setShowClose(true);
 });

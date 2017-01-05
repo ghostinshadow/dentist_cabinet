@@ -1,6 +1,6 @@
 var myClinic = angular.module("myClinic");
 
-myClinic.controller("NavController", function($scope, $location, $timeout, Pagination, UserService) {
+myClinic.controller("NavController", function($scope, $location, $timeout, Pagination, UserService, Flash) {
 
     $scope.go = function(path, clear) {
         $location.path(path);
@@ -209,20 +209,23 @@ myClinic.controller("NavController", function($scope, $location, $timeout, Pagin
     $scope.initUpdate = function(patient) {
         $scope.go('/createForm')
         $scope.patientToUpdate = true;
-        $scope.newClient = patient;
-        $scope.query = {
-            _id: patient._id
-        };
+        patient.birth_day = new Date(patient.birth_day);
+        $timeout(function() {
+            $scope.newClient = patient;
+        }, 0, true);
     };
 
     $scope.updateForm = function(patient) {
-        var options = {
-            multi: false,
-            upsert: false
-        };
-        db.clients.update($scope.query, patient, options);
+        UserService.update_patient(patient, function(response){
+            if (response.data["errors"]) {
+                $scope.parseErrorsFromResponse(response);
+                Flash.create('info', "Дані не вдалось оновити")
+            } else {
+                $scope.goHomeAndSelect(patient);
+                Flash.create('success',"Запис успішно оновлено")
+            }
+        })
 
-        $scope.goHomeAndSelect(patient);
     };
 
     $scope.deleteAppoint = function(appoint, client) {

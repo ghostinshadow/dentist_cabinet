@@ -19,6 +19,7 @@
 //= require angular-resource
 //= require angular-route
 //= require angular-touch
+//= require angular-flash
 //= require simplePagination
 //= require app
 //= require services/resources_fetcher
