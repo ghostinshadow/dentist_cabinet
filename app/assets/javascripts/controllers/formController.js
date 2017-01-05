@@ -100,16 +100,31 @@ myClinic.controller("FormController", function($scope, $interpolate, $timeout, $
         UserService.get_patient_creation_dictionaries(function(response){
             $scope.doctors = response.data.doctors;
             $scope.towns = response.data.cities;
-            // $scope.doctors = {
-            //     availableOptions: response.data.doctors,
-            //     selectedOption: response.data.doctors[0]
-            // };
-            // $scope.towns = {
-            //     availableOptions: response.data.cities,
-            //     selectedOption: response.data.cities[0]
-            // };
         })
     }
 
     $scope.fetchValuesForDropdowns();
+})
+.directive('convertToNumber', function() {
+  return {
+    require: 'ngModel',
+    link: function(scope, element, attrs, ngModel) {
+      ngModel.$parsers.push(function(val) {
+        return parseInt(val, 10);
+      });
+      ngModel.$formatters.push(function(val) {
+        return '' + val;
+      });
+    }
+  };
+})
+.directive('convertToBool', function() {
+  return {
+    require: 'ngModel',
+    link: function(scope, element, attrs, ngModel) {
+      ngModel.$parsers.push(function(val) {
+        return val ? "1" : "0"; 
+      });
+    }
+  };
 });

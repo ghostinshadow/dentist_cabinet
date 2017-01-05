@@ -17,6 +17,7 @@
 				<div ng-hide="(form.last_name.$invalid && form.last_name.$dirty)" class="error-placeholder">
 				</div>
 		</div>
+
 		</div>
 		<div class="form-group">
 			<label for="inputFirstName" class="col-sm-3 control-label custom" ><h3>Ім'я</h3></label>
@@ -34,7 +35,7 @@
 		<div class="form-group">
 			<label for="inputDoctorId" class="col-sm-3 control-label custom"><h3>Лікар</h3></label>
 			<div class="col-sm-6">
-		  	<select class="form-control input-lg custom" ng-model='newClient.doctor_id' required>
+		  	<select class="form-control input-lg custom" ng-model='newClient.doctor_id' convert-to-number required>
 		  	  <option value="">Оберіть лікаря</option>
 				  <option ng-repeat="doctor in doctors" value="{{doctor.id}}">{{doctor.body}}</option>
 				</select>
@@ -47,7 +48,7 @@
 	<div class="form-group">
 		<label for="inputMilkTeeth" class="col-sm-3 control-label custom"><h3>Наявність молочних зубів</h3></label>
 		<div class="col-sm-4">
-			<select class="form-control input-lg custom" ng-model='newClient.milk_teeth'required>
+			<select class="form-control input-lg custom" ng-model='newClient.milk_teeth' convert-to-bool required>
 			  <option value="">Оберіть пункт</option>
 				<option value="1">Є</option>
 				<option value="0">Відсутні</option>
@@ -66,7 +67,7 @@
 	<div class="form-group">
 		<label for="inputTown" class="col-sm-3 control-label custom"><h3>Місто</h3></label>
 		<div class="col-sm-4">
-			<select  class="form-control input-lg custom" ng-model='newClient.town_id'>
+			<select  class="form-control input-lg custom" ng-model='newClient.town_id' convert-to-number>
 			required>
         <option value="">Оберіть місто</option>
         <option ng-repeat="town in towns" value="{{town.id}}">{{town.body}}</option>

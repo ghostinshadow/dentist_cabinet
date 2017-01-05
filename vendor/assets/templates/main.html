@@ -25,12 +25,12 @@
 				<th>Видалити запис</th>
 			</tr>
 			<tr class="success">
-				<td>{{selectedPatient.surname}}</td>
-				<td>{{selectedPatient.name}}</td>
-				<td>{{selectedPatient.town}}</td>
-				<td>{{selectedPatient.doctor}}</td>
-				<td>{{selectedPatient.telNumber1}}</td>
-				<td>{{selectedPatient.telNumber2}}</td>
+				<td>{{selectedPatient.last_name}}</td>
+				<td>{{selectedPatient.first_name}}</td>
+				<td>{{selectedPatient.town_id}}</td>
+				<td>{{selectedPatient.doctor_id}}</td>
+				<td>{{selectedPatient.telephone}}</td>
+				<td>{{selectedPatient.backup_telephone}}</td>
 				<td>{{selectedPatient.email}}</td>
 				<td>
 					<a ng-click = 'createAppointment(selectedPatient)'>
