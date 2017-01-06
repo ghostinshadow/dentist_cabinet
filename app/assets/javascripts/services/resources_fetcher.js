@@ -1,13 +1,16 @@
 angular.module('myClinic')
 
-    .factory('UserService', function ($http) {
+    .factory('UserService', function ($http, Flash) {
         var service = {};
 
         service.get_patients_by_character = get_patients;
         service.post_patient_info = post_patient;
         service.get_patient_creation_dictionaries = get_doctors_and_cities_info;
+        service.get_work_creation_dictionaries = get_theraphy_and_orthodoncy_info;
         service.update_patient = put_patient_info;
         service.delete_patient = delete_patient;
+        service.load_appointments = load_appointments;
+        service.load_completed_work = load_completed_work;
 
         return service;
 
@@ -60,9 +63,24 @@ angular.module('myClinic')
             return $http(get_request).then(function(response){ callback(response)}, handle_error)
         };
 
+        function get_theraphy_and_orthodoncy_info(callback){
+            get_request = params_constructor("/dictionaries/work_specific_dictionaries")
+            return $http(get_request).then(function(response){ callback(response)}, handle_error)
+        }
+
         function delete_patient(patient, callback){
             delete_request = post_request_constructor("/patients/" + patient.id, {id: patient.id}, "DELETE");
             return $http(delete_request).then(function(response){ callback(response)}, handle_error)
+        }
+
+        function load_appointments(patient, callback){
+            get_request = params_constructor("/patients/" + patient.id + "/appointments")
+            return $http(get_request).then(function(response){ callback(response)}, handle_error);
+        }
+
+        function load_completed_work(appointment, callback){
+            get_request = params_constructor("/appointments/" + appointment.id + "/performed_works");
+            return $http(get_request).then(function(response){callback(response)}, handle_error);
         }
 
         function merge(one, two) {
@@ -86,10 +104,7 @@ angular.module('myClinic')
         };
 
         function handle_error(response) {
-            // console.log(response);
-            if ((response.status === 403) || (response.status === 401)){
-                $state.go('login',{status: 401});
-            };
+            Flash.create("danger", "Не вдалось з'єднатись з сервером");
         };
 
     });

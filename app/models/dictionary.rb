@@ -8,6 +8,30 @@ class Dictionary < ApplicationRecord
   validates_length_of :title, minimum: 1, maximum: 75
   validates_uniqueness_of :resource_type, scope: :user
 
+  scope :work_specific_dictionaries, ->{where(resource_type: ["Theraphy", "Ortodoncy", "Orthopedy", "Surgery"])}
+
+  def self.form_information_about_work_specific_dictionaries
+    work_specific_dictionaries = all.work_specific_dictionaries
+    {dictionary: work_specific_dictionaries.form_dictionary_with_words,
+     info: work_specific_dictionaries.form_dictionary_with_basic_info
+     }
+  end
+
+  def self.form_dictionary_with_basic_info
+    all.inject({})do |info_dict, dictionary|
+      info_dict.merge!(dictionary.info_representation)
+      info_dict
+    end
+  end
+
+  def self.form_dictionary_with_words
+    all.inject({}) do |overal_works_dictionary, dictionary|
+      overal_works_dictionary[dictionary.id] = dictionary.words.select(:id, :dictionary_id, :body)
+      overal_works_dictionary
+    end
+  end
+
+
   def self.create_for_user(user)
     AVAILABLE_RESOURCES.each do |resource|
       dictionary = user.dictionaries.where(resource_type: resource['type']).first_or_create do |d|
@@ -16,6 +40,15 @@ class Dictionary < ApplicationRecord
       resource['words'].each do |word|
         dictionary.words.create(body: word['body'])
       end
+    end
+  end
+
+  def info_representation
+    case resource_type
+    when "Theraphy" then {therapy: {name: "Терапія", id: id}}
+    when "Ortodoncy" then {orthodoncy: {name: "Ортодонтія", id: id}}
+    when "Orthopedy" then {orthopedy: {name: "Ортопедія", id: id}}
+    when "Surgery" then {surgery: {name: "Хірургія", id: id}}
     end
   end
 end

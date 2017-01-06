@@ -14,9 +14,10 @@
  *= require jquery-ui
  *= require pass_styles
  *= require photos
- *= require scaffolds
  *= require style
  *= require words
  *= require angular-flash
  *= require_self
  */
+
+ require scaffolds

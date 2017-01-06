@@ -1,6 +1,16 @@
 var myClinic = angular.module("myClinic");
 
 myClinic.controller("NavController", function($scope, $location, $timeout, Pagination, UserService, Flash) {
+    UserService.get_patient_creation_dictionaries(function(response){
+        $scope.doctors = response.data.doctors;
+        $scope.towns = response.data.cities;
+    })
+
+    UserService.get_work_creation_dictionaries(function(response){
+        $scope.theraphy_and_orthodoncy_works_dictionary = response.data.dictionary;
+        $scope.dictionaries_info = response.data.info;
+        debugger;
+    })
 
     $scope.go = function(path, clear) {
         $location.path(path);
@@ -110,15 +120,6 @@ myClinic.controller("NavController", function($scope, $location, $timeout, Pagin
         }
     };
 
-    // $scope.defer = function(char) {
-    //     var q = $q.defer();
-
-    //     q.resolve(db.clients.find({
-    //         firstChar: char
-    //     }));
-    //     return q.promise
-    // };
-
     $scope.clearTemp = function() {
         $scope.newClient = null;
         $scope.patientToUpdate = null;
@@ -130,8 +131,10 @@ myClinic.controller("NavController", function($scope, $location, $timeout, Pagin
         $scope.toothInfo = true;
         $scope.selectedTooth = null;
         $scope.selectedAppointment = appoint;
-        $scope.worksDone = appoint.worksDone;
-        $scope.findHealedTeeth(appoint.worksDone);
+        UserService.load_completed_work(appoint, function(response){
+            $scope.worksDone = response.data;
+            $scope.findHealedTeeth(appoint.worksDone);
+        })
     };
 
     $scope.findAllHealedTeeth = function(arr) {
@@ -201,10 +204,19 @@ myClinic.controller("NavController", function($scope, $location, $timeout, Pagin
         $scope.healedTeeth = [];
         $scope.toothInfo = true;
         $scope.selectedPatient = client;
-        $scope.appointments = client.appointments;
-        $scope.paginationManage();
-        $scope.findAllHealedTeeth(client.appointments);
+        UserService.load_appointments(client, function(response){
+          $scope.appointments = response.data;
+          $scope.paginationManage();
+          $scope.findAllHealedTeeth(client.appointments);
+        })
     };
+
+    $scope.filterDictionaryByKey = function(collection, key){
+        var filtered = collection.filter(function(word){
+            return word.id == $scope.selectedPatient[key];
+        })
+        return filtered[0];
+    }
 
     $scope.initUpdate = function(patient) {
         $scope.go('/createForm')
@@ -221,7 +233,8 @@ myClinic.controller("NavController", function($scope, $location, $timeout, Pagin
                 $scope.parseErrorsFromResponse(response);
                 Flash.create('info', "Дані не вдалось оновити")
             } else {
-                $scope.goHomeAndSelect(patient);
+                $scope.goHomeAndSelect(response.data);
+                patient.birth_day = response.data.birth_day;
                 Flash.create('success',"Запис успішно оновлено")
             }
         })

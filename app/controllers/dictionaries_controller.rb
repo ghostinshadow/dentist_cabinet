@@ -68,14 +68,18 @@ class DictionariesController < ApplicationController
                   cities: cities_dict.words.select(:id, :body)}
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_dictionary
-      @dictionary = Dictionary.find(params[:id])
-    end
+  def work_specific_dictionaries
+    render json: current_user.dictionaries.form_information_about_work_specific_dictionaries
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def dictionary_params
-      params.require(:dictionary).permit(:user_id, :title, :resource_type)
-    end
+  private
+  # Use callbacks to share common setup or constraints between actions.
+  def set_dictionary
+    @dictionary = Dictionary.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def dictionary_params
+    params.require(:dictionary).permit(:user_id, :title, :resource_type)
+  end
 end

@@ -7,12 +7,12 @@
       %form.navbar-form.navbar-left.col-sm-2.main_page{"ng-show" => "selectedChar", :role => "search"}
         .form-group
           %input.form-control.input-lg{"ng-model" => "search", :placeholder => "Пошук стосовно літери", :type => "search"}/
+    .col-md-4.col-md-offset-1
+      %flash-message
     .nav.navbar-nav.pull-right
       .navbar-header.navbar-right
         %button.navbar-brand{"ng-click" => "go('/createForm', true)"}
           %span.glyphicon.glyphicon-plus
           %span.glyphicon.glyphicon-user
-.row
-  .col-md-offset-3.col-md-6
-    %flash-message
+
 %div{"ng-view" => ""}

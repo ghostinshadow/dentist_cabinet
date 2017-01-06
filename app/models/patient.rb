@@ -8,6 +8,6 @@ class Patient < ApplicationRecord
 	scope :with_user, -> (user_id) { where(user_id: user_id)}
 
 	def milk_teeth
-		@milk_teeth ? "1" : "0"
+		self[:milk_teeth] ? "1" : "0"
 	end
 end
