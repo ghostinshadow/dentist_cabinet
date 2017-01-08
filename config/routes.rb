@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     	resources :performed_works
     end
   end
+  get :works_performed_on_tooth, controller: "performed_works"
   devise_for :users
   root "cabinets#show"
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

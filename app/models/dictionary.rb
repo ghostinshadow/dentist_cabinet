@@ -51,4 +51,13 @@ class Dictionary < ApplicationRecord
     when "Surgery" then {surgery: {name: "Хірургія", id: id}}
     end
   end
+
+  def translated_resource_type
+  	case resource_type
+    when "Theraphy" then "Терапія"
+    when "Ortodoncy" then "Ортодонтія"
+    when "Orthopedy" then "Ортопедія"
+    when "Surgery" then "Хірургія"
+    end
+  end
 end

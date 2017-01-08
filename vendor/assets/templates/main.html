@@ -60,40 +60,47 @@
 				<div class="form-group">
 					<label for="inputTypeOfWork" class="col-sm-3 control-label custom"><h4>Тип робіт</h4></label>
 					<div class="col-sm-6">
-						<select class="form-control input-lg custom" ng-model='workDone.workType'required>
-							<option>Терапія</option>
-							<option>Ортодонтія</option>
+						<select class="form-control input-lg custom" ng-model='workDone.dictionary_id'required>
+						  <option value="">Оберіть тип робіт</option>
+							<option ng-repeat="dictionary in dictionaries_names" value="{{dictionary.id}}">{{dictionary.name}}</option>
 						</select>
-						<div ng-show='form.workType.$invalid && form.workType.$dirty '>
-							<div ng-show='form.workType.$error.required' class='custom'>Слід вказати тип </div>
+						<div ng-show='form.dictionary_id.$invalid && form.dictionary_id.$dirty '>
+							<div ng-show='form.dictionary_id.$error.required' class='custom'>Слід вказати тип </div>
 						</div>
 					</div>
 				</div>
-				<div class="form-group" ng-if='workDone.workType === "Терапія"'>
+				<div class="form-group" ng-if='workDone.dictionary_id'>
 					<label for="inputExactWork" class="col-sm-3 control-label custom"><h4>Вид робіт</h4></label>
 					<div class="col-sm-6">
-						<select class="form-control input-lg custom" ng-model='workDone.exactWork' ng-options="work for work in theraphy" required>
+						<select class="form-control input-lg custom" ng-model='workDone.word_id' required>
+						  <option value="">Оберіть вид робіт</option>
+						  <option ng-repeat="work in work_specific_dictionaries[workDone.dictionary_id]"
+						   value="{{work.id}}">{{work.body}}</option>
 						</select>
-						<div ng-show='form.workType.$invalid && form.workType.$dirty '>
-							<div ng-show='form.workType.$error.required' class='custom'>Слід вказати вид робіт</div>
-						</div>
-					</div>
-				</div>
-				<div class="form-group" ng-if='workDone.workType === "Ортодонтія"'>
-					<label for="inputExactWork" class="col-sm-3 control-label custom"><h4>Вид робіт</h4></label>
-					<div class="col-sm-6">
-						<select class="form-control input-lg custom" ng-model='workDone.exactWork' ng-options="work for work in ortodoncy" required>
-						</select>
-						<div ng-show='form.workType.$invalid && form.workType.$dirty '>
-							<div ng-show='form.workType.$error.required' class='custom'>Слід вказати вид робіт</div>
+						<div ng-show='form.word_id.$invalid && form.word_id.$dirty '>
+							<div ng-show='form.word_id.$error.required' class='custom'>Слід вказати вид робіт</div>
 						</div>
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="inputTeeth" class="col-sm-3 control-label custom"><h4>Номер зуба</h4></label>
-					<div class="col-sm-5">
-						<select name='nums' class="form-control input-lg custom" ng-model='workDone.teeth_nums' ng-options="tooth for tooth in teeth" multiple required>
-						</select>
+					<label for="inputTeeth" class="row col-sm-offset-2 control-label custom"><h4>Номер зуба</h4></label>
+					<div class='row' ng-init="workDone.teeth_nums=[]">
+        		<div class="text-center" >
+        			<ul class=' teeth'>
+        				<img  ng-repeat ='num in up_teeth_num' ng-click='toggleSelected(workDone.teeth_nums, num)' ng-src="assets/teeth_img/{{num}}.png" ng-class='{healed: isBeenHealed(num), active: isSelectedTooth(num), active: isIncudedInCollection(workDone.teeth_nums, num)}'/>
+        			</ul>
+        			<ul class=' teeth bottom '>
+        				<img  ng-repeat ='num in bottom_teeth_num'  ng-click='toggleSelected(workDone.teeth_nums, num)' ng-src="assets/teeth_img/{{num}}.png" ng-class='{healed: isBeenHealed(num), active: isSelectedTooth(num), active: isIncudedInCollection(workDone.teeth_nums, num)}'/>
+        			</ul>
+        		</div>
+        		<div ng-if='selectedPatient.milk_teeth === "1"' class="text-center">
+        			<ul class='milk'>
+        				<img ng-class='{healed: isBeenHealed(num), active: isSelectedTooth(num), active: isIncudedInCollection(workDone.teeth_nums, num)}'  ng-repeat ='num in up_milk_num'  ng-click='toggleSelected(workDone.teeth_nums, num)' ng-src="assets/teeth_img/{{num}}.png"/>
+        			</ul>
+        			<ul class=' milk'>
+        				<img ng-class='{healed: isBeenHealed(num), active: isSelectedTooth(num), active: isIncudedInCollection(workDone.teeth_nums, num)}' ng-repeat ='num in bottom_milk_num'  ng-click='toggleSelected(workDone.teeth_nums, num)' ng-src="assets/teeth_img/{{num}}.png"/>
+        			</ul>
+        		</div>						
 						<div ng-show='form.nums.$invalid && form.nums.$dirty '>
 							<div ng-show='form.nums.$error.required' class='custom'>Слід вказати вид робіт</div>
 							<div ng-show="form.nums.$dirty" class='custom'>Для вибору кількох варіантів використати клавішу ctr + ліва клавіша мишки. Таким же чином можна відмінити вибір</div>
@@ -150,8 +157,8 @@
 						<th>Вилучити запис</th>
 					</tr>
 					<tr ng-repeat="work in (worksDone | reverse ) track by $index" class="success">
-						<td>{{work}}</td>
-						<td>{{filterDictionaryByKey()}}</td>
+						<td>{{filterDictionaryByKey(dictionaries_names, "dictionary_id", work)["name"] }}</td>
+						<td>{{filterDictionaryByKey(work_specific_dictionaries[work.dictionary_id], "word_id", work)["body"]}}</td>
 						<td>{{work.price}}</td>
 						<td>
 							<a ng-click = 'deleteWork(work)'>

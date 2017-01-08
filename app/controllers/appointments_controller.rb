@@ -6,6 +6,11 @@ class AppointmentsController < ApplicationController
 		render json: @patient.appointments.order(creation_time: :desc)
 	end
 
+	def destroy
+		@appointment = Appointment.find(params[:id])
+		@appointment.destroy
+	end
+
 	private
 
 	def set_patient

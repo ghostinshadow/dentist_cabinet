@@ -1,6 +1,7 @@
 class Patient < ApplicationRecord
 	belongs_to :user
 	has_many :appointments
+	has_many :performed_works, through: :appointments
 
 	validates_presence_of :first_name, :last_name, :telephone	
 

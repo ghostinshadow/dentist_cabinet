@@ -7,9 +7,12 @@ myClinic.controller("NavController", function($scope, $location, $timeout, Pagin
     })
 
     UserService.get_work_creation_dictionaries(function(response){
-        $scope.theraphy_and_orthodoncy_works_dictionary = response.data.dictionary;
+        $scope.work_specific_dictionaries = response.data.dictionary;
         $scope.dictionaries_info = response.data.info;
-        debugger;
+        $scope.dictionaries_names = [];
+        angular.forEach($scope.dictionaries_info, function(element, value){
+            $scope.dictionaries_names.push(element);
+        });
     })
 
     $scope.go = function(path, clear) {
@@ -67,6 +70,17 @@ myClinic.controller("NavController", function($scope, $location, $timeout, Pagin
     $scope.toothInfo = true;
     $scope.pagination = Pagination.getNew(6);
 
+    $scope.toggleSelected = function(teeth, tooth_num){
+        if(!$scope.isIncudedInCollection(teeth, tooth_num)){
+            teeth.push(tooth_num);
+        }else{
+            teeth = teeth.splice(teeth.indexOf(tooth_num), 1 , tooth_num);
+        }
+    };
+
+    $scope.isIncudedInCollection = function(collection, el){
+        return (collection.indexOf(el) < 0) ? false : true
+    }
 
     $scope.addWork = function(work) {
         var index = $scope.selectedPatient.appointments.indexOf($scope.selectedAppointment);
@@ -75,18 +89,6 @@ myClinic.controller("NavController", function($scope, $location, $timeout, Pagin
         $scope.updateAppoint($scope.selectedPatient);
         $scope.triggerWorkForm();
     }
-
-    $scope.updateAppoint = function(patient) {
-        var query = {
-            _id: patient._id
-        }
-        var options = {
-            multi: false,
-            upsert: false
-        };
-
-        db.clients.update(query, patient, options);
-    };
 
     $scope.goHomeAndSelect = function(client, refresh) {
         $scope.go('/main');
@@ -133,7 +135,7 @@ myClinic.controller("NavController", function($scope, $location, $timeout, Pagin
         $scope.selectedAppointment = appoint;
         UserService.load_completed_work(appoint, function(response){
             $scope.worksDone = response.data;
-            $scope.findHealedTeeth(appoint.worksDone);
+            $scope.findHealedTeeth($scope.worksDone);
         })
     };
 
@@ -154,22 +156,12 @@ myClinic.controller("NavController", function($scope, $location, $timeout, Pagin
     };
 
     $scope.findWorkOnTooth = function(num) {
-        var result = [];
-        angular.forEach($scope.selectedPatient.appointments, function(outh_elm) {
-            angular.forEach(outh_elm.worksDone, function(inner_elm) {
-                if (inner_elm.teeth_nums.length > 0) {
-                    if (inner_elm.teeth_nums.indexOf(num.toString()) == -1) {
-
-                    } else {
-                        result.unshift(inner_elm.workType + ": " + inner_elm.exactWork);
-                    }
-                }
-            })
+        UserService.load_works_for_tooth($scope.selectedPatient.id, num, function(response){
+           $scope.toothInfo = false;
+           $scope.selectedTooth = num;
+           $scope.toothInfoList = response.data;
         })
-        $scope.toothInfo = false;
-        $scope.selectedTooth = num;
-        $scope.toothInfoList = result;
-    }
+    };
 
     $scope.iterateOverArray = function(arr, result) {
         angular.forEach(arr, function(elm) {
@@ -211,10 +203,11 @@ myClinic.controller("NavController", function($scope, $location, $timeout, Pagin
         })
     };
 
-    $scope.filterDictionaryByKey = function(collection, key){
+    $scope.filterDictionaryByKey = function(collection, key, element){
+        element = element || $scope.selectedPatient;
         var filtered = collection.filter(function(word){
-            return word.id == $scope.selectedPatient[key];
-        })
+            return word.id == (element[key]);
+        });
         return filtered[0];
     }
 
@@ -243,21 +236,23 @@ myClinic.controller("NavController", function($scope, $location, $timeout, Pagin
 
     $scope.deleteAppoint = function(appoint, client) {
         if (confirm("Ви впевнені, що хочете видалити цей прийом?")) {
-            var index = $scope.selectedPatient.appointments.indexOf(appoint);
-            $scope.selectedPatient.appointments.splice(index, 1);
-            $scope.updateAppoint($scope.selectedPatient);
-            $scope.selectedAppointment = null;
-            $scope.paginationManage();
+            UserService.delete_appointment(appoint, function(response){
+                Flash.create('success',"Запис успішно видалено");
+                var index = $scope.appointments.indexOf(appoint);
+                $scope.appointments.splice(index, 1);
+                $scope.selectedAppointment = null;
+                $scope.paginationManage();
+            });
         }
     };
 
     $scope.deleteWork = function(work) {
         if (confirm("Ви впевнені, що хочете видалити запис про виконану роботу?")) {
-            var index = $scope.selectedPatient.appointments.indexOf($scope.selectedAppointment);
-            var index_work = $scope.selectedAppointment.worksDone.indexOf(work);
-            $scope.selectedAppointment.worksDone.splice(index_work, 1);
-            $scope.selectedPatient.appointments.splice(index, 1, $scope.selectedAppointment);
-            $scope.updateAppoint($scope.selectedPatient);
+            UserService.delete_performed_work(work, function(response){
+                Flash.create('success',"Запис успішно видалено");
+                var work_index = $scope.worksDone.indexOf(work);
+                $scope.worksDone.splice(work_index, 1);
+            });
         }
     };
 

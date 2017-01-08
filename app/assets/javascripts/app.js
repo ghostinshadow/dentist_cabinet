@@ -1,9 +1,10 @@
 var myClinic = angular.module('myClinic', ['ngResource', 'ngRoute',
- 'simplePagination','ngAnimate', 'ngTouch', "ngFlash"]);
+    'simplePagination', 'ngAnimate', 'ngTouch', "ngFlash"
+]);
 
 myClinic.config(["$routeProvider",
     function($routeProvider) {
-        $routeProvider.                          
+        $routeProvider.
         when("/home", {
             templateUrl: "assets/main.html",
             controller: "MainController"
@@ -22,9 +23,11 @@ myClinic.config(["$routeProvider",
     }
 ]);
 myClinic.filter('reverse', function() {
-  return function(items) {
-    return items.slice().reverse();
-  };
+    return function(items) {
+        if (items) {
+            return items.slice().reverse();
+        }
+    };
 });
 
 myClinic.config((FlashProvider) => {

@@ -9,8 +9,11 @@ angular.module('myClinic')
         service.get_work_creation_dictionaries = get_theraphy_and_orthodoncy_info;
         service.update_patient = put_patient_info;
         service.delete_patient = delete_patient;
+        service.delete_appointment = delete_appointment;
+        service.delete_performed_work = delete_performed_work;
         service.load_appointments = load_appointments;
         service.load_completed_work = load_completed_work;
+        service.load_works_for_tooth = load_works_performed_on_tooth;
 
         return service;
 
@@ -73,6 +76,17 @@ angular.module('myClinic')
             return $http(delete_request).then(function(response){ callback(response)}, handle_error)
         }
 
+        function delete_appointment(appointment, callback){
+            delete_request = post_request_constructor("/appointments/" + appointment.id, {id: appointment.id}, "DELETE");
+            return $http(delete_request).then(function(response){ callback(response)}, handle_error)
+        }
+
+        function delete_performed_work(performed_work, callback){
+            delete_request = post_request_constructor("/performed_works/" + performed_work.id,
+                                                       {id: performed_work.id}, "DELETE");
+            return $http(delete_request).then(function(response){ callback(response)}, handle_error)
+        }
+
         function load_appointments(patient, callback){
             get_request = params_constructor("/patients/" + patient.id + "/appointments")
             return $http(get_request).then(function(response){ callback(response)}, handle_error);
@@ -81,6 +95,11 @@ angular.module('myClinic')
         function load_completed_work(appointment, callback){
             get_request = params_constructor("/appointments/" + appointment.id + "/performed_works");
             return $http(get_request).then(function(response){callback(response)}, handle_error);
+        }
+
+        function load_works_performed_on_tooth(patient_id, tooth_num, callback){
+            get_request = params_constructor("/works_performed_on_tooth", {patient_id: patient_id, num: tooth_num});
+            return $http(get_request).then(function(response){callback(response), handle_error});
         }
 
         function merge(one, two) {
