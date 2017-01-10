@@ -87,20 +87,34 @@
 					<div class='row' ng-init="workDone.teeth_nums=[]">
         		<div class="text-center" >
         			<ul class=' teeth'>
-        				<img  ng-repeat ='num in up_teeth_num' ng-click='toggleSelected(workDone.teeth_nums, num)' ng-src="assets/teeth_img/{{num}}.png" ng-class='{healed: isBeenHealed(num), active: isSelectedTooth(num), active: isIncudedInCollection(workDone.teeth_nums, num)}'/>
+        				<img  ng-repeat ='num in up_teeth_nums' ng-click='toggleSelected(workDone.teeth_nums, num)' ng-src="assets/teeth_img/{{num}}.png" ng-class='{healed: isBeenHealed(num), active: isIncudedInCollection(workDone.teeth_nums, num)}'/>
         			</ul>
         			<ul class=' teeth bottom '>
-        				<img  ng-repeat ='num in bottom_teeth_num'  ng-click='toggleSelected(workDone.teeth_nums, num)' ng-src="assets/teeth_img/{{num}}.png" ng-class='{healed: isBeenHealed(num), active: isSelectedTooth(num), active: isIncudedInCollection(workDone.teeth_nums, num)}'/>
+        				<img  ng-repeat ='num in bottom_teeth_nums'  ng-click='toggleSelected(workDone.teeth_nums, num)' ng-src="assets/teeth_img/{{num}}.png" ng-class='{healed: isBeenHealed(num), active: isIncudedInCollection(workDone.teeth_nums, num)}'/>
         			</ul>
         		</div>
         		<div ng-if='selectedPatient.milk_teeth === "1"' class="text-center">
         			<ul class='milk'>
-        				<img ng-class='{healed: isBeenHealed(num), active: isSelectedTooth(num), active: isIncudedInCollection(workDone.teeth_nums, num)}'  ng-repeat ='num in up_milk_num'  ng-click='toggleSelected(workDone.teeth_nums, num)' ng-src="assets/teeth_img/{{num}}.png"/>
+        				<img ng-class='{healed: isBeenHealed(num), active: isIncudedInCollection(workDone.teeth_nums, num)}'  ng-repeat ='num in up_milk_nums'  ng-click='toggleSelected(workDone.teeth_nums, num)' ng-src="assets/teeth_img/{{num}}.png"/>
         			</ul>
         			<ul class=' milk'>
-        				<img ng-class='{healed: isBeenHealed(num), active: isSelectedTooth(num), active: isIncudedInCollection(workDone.teeth_nums, num)}' ng-repeat ='num in bottom_milk_num'  ng-click='toggleSelected(workDone.teeth_nums, num)' ng-src="assets/teeth_img/{{num}}.png"/>
+        				<img ng-class='{healed: isBeenHealed(num), active: isIncudedInCollection(workDone.teeth_nums, num)}' ng-repeat ='num in bottom_milk_nums'  ng-click='toggleSelected(workDone.teeth_nums, num)' ng-src="assets/teeth_img/{{num}}.png"/>
         			</ul>
-        		</div>						
+        		</div>
+        		<div>
+        			<ul class="half_size_pictures col-md-4 col-sm-offset-3">
+        			  <div>
+        				  <img ng-class='{healed: isBeenHealed("up_teeth_nums"), active: isSelectedTooth("up_teeth_nums"), active: isIncudedInCollection(workDone.teeth_nums, "up_teeth_nums")}' ng-click='toggleSelected(workDone.teeth_nums, "up_teeth_nums")' ng-src="assets/teeth_img/upper.jpg" />
+        				  <img ng-class='{healed: isBeenHealed("bottom_teeth_nums"), active: isSelectedTooth("bottom_teeth_nums"), active: isIncudedInCollection(workDone.teeth_nums, "bottom_teeth_nums")}' ng-click='toggleSelected(workDone.teeth_nums, "bottom_teeth_nums")' ng-src="assets/teeth_img/lower.jpg" />
+        				</div>
+        			</ul>
+        			<ul class="half_size_milk_pictures col-md-2">
+       				<div >
+       				  <img ng-class='{healed: isBeenHealed("up_milk_nums"), active: isSelectedTooth("up_milk_nums"), active: isIncudedInCollection(workDone.teeth_nums, "up_milk_nums")}' ng-click='toggleSelected(workDone.teeth_nums, "up_milk_nums")' ng-src="assets/teeth_img/milk_upper.jpg" />
+       				  <img ng-class='{healed: isBeenHealed("bottom_milk_nums"), active: isSelectedTooth("bottom_milk_nums"), active: isIncudedInCollection(workDone.teeth_nums, "bottom_milk_nums")}' ng-click='toggleSelected(workDone.teeth_nums, "bottom_milk_nums")' ng-src="assets/teeth_img/milk_lower.jpg" />
+       				</div>
+       				</ul>
+        		</div>					
 						<div ng-show='form.nums.$invalid && form.nums.$dirty '>
 							<div ng-show='form.nums.$error.required' class='custom'>Слід вказати вид робіт</div>
 							<div ng-show="form.nums.$dirty" class='custom'>Для вибору кількох варіантів використати клавішу ctr + ліва клавіша мишки. Таким же чином можна відмінити вибір</div>

@@ -4,16 +4,16 @@ a{
 span.glyphicon {
 	color: #77ca9e;
 }
-ul>img{
+ul>img, ul>div>img{
 	border: 3px solid white;
 	font-size: 5em;
 	margin: 6px 4px 6px 4px;
  	-webkit-transform:scale(1.2);
 } 
-ul>img.active{
+ul>img.active, ul>div>img.active{
 	border: 3px solid green;
 }
-ul>img:hover{
+ul>img:hover, ul>div>img:hover{
 	border: 3px solid grey;
 }
 .overflow{
@@ -292,3 +292,13 @@ background: transparent;
 /*.animate.ng-enter.ng-enter-active {
 	opacity: 1;
 }*/
+
+.half_size_pictures img{
+	height: 60px;
+  width: 320px;	
+}
+
+.half_size_milk_pictures img{
+	height: 60px;
+  width: 160px;	
+}

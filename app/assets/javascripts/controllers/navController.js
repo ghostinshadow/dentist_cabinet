@@ -74,7 +74,7 @@ myClinic.controller("NavController", function($scope, $location, $timeout, Pagin
         if(!$scope.isIncudedInCollection(teeth, tooth_num)){
             teeth.push(tooth_num);
         }else{
-            teeth = teeth.splice(teeth.indexOf(tooth_num), 1 , tooth_num);
+            teeth.splice(teeth.indexOf(tooth_num), 1);
         }
     };
 
@@ -320,12 +320,12 @@ myClinic.controller("NavController", function($scope, $location, $timeout, Pagin
         '12': 'Грудня'
     }
 
-    $scope.up_teeth_num = [18,17,16,15,14,13,12,11,21,22,23,24,25,26,27,28];
+    $scope.up_teeth_nums = [18,17,16,15,14,13,12,11,21,22,23,24,25,26,27,28];
 
-    $scope.bottom_teeth_num = [48,47,46,45,44,43,42,41,31,32,33,34,35,36,37,38];
+    $scope.bottom_teeth_nums = [48,47,46,45,44,43,42,41,31,32,33,34,35,36,37,38];
 
-    $scope.up_milk_num = [55,54,53,52,51,61,62,63,64,65];
+    $scope.up_milk_nums = [55,54,53,52,51,61,62,63,64,65];
 
-    $scope.bottom_milk_num = [85,84,83,82,81,71,72,73,74,75];
+    $scope.bottom_milk_nums = [85,84,83,82,81,71,72,73,74,75];
 
 });
