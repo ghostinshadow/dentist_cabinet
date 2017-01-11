@@ -12,12 +12,22 @@ class PerformedWorksController < ApplicationController
     .filter_by_exact_tooth(params[:num]).to_list_format
   end
 
+  def create
+  	creation_params = performed_work_params.merge(teeth_nums: params[:teeth_nums].uniq.map(&:to_s))
+  	@performed = @appointment.performed_works.create(creation_params)
+  	render json: (@performed.persisted? ? {status: 200} : {error: 404})
+  end
+
   def destroy
   	@performed_work = PerformedWork.find(params[:id])
   	@performed_work.destroy
   end
 
   private
+
+  def performed_work_params
+  	params.require(:performed_work).permit(:dictionary_id, :word_id, :price, teeth_nums: [])
+  end
 
   def set_appointment
     @appointment = Appointment.find params[:appointment_id]

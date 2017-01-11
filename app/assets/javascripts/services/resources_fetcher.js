@@ -14,6 +14,7 @@ angular.module('myClinic')
         service.load_appointments = load_appointments;
         service.load_completed_work = load_completed_work;
         service.load_works_for_tooth = load_works_performed_on_tooth;
+        service.post_appointments_performed_work = post_appointments_performed_work;
 
         return service;
 
@@ -100,6 +101,13 @@ angular.module('myClinic')
         function load_works_performed_on_tooth(patient_id, tooth_num, callback){
             get_request = params_constructor("/works_performed_on_tooth", {patient_id: patient_id, num: tooth_num});
             return $http(get_request).then(function(response){callback(response), handle_error});
+        }
+
+        function post_appointments_performed_work(appointment_id, performed_work, callback){
+            post_request = post_request_constructor("/appointments/" + appointment_id + "/performed_works", performed_work);
+            return $http(post_request).then(function (response) {
+                callback(response);
+            }, handle_error);
         }
 
         function merge(one, two) {

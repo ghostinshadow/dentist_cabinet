@@ -108,8 +108,8 @@
         				  <img ng-class='{healed: isBeenHealed("bottom_teeth_nums"), active: isSelectedTooth("bottom_teeth_nums"), active: isIncudedInCollection(workDone.teeth_nums, "bottom_teeth_nums")}' ng-click='toggleSelected(workDone.teeth_nums, "bottom_teeth_nums")' ng-src="assets/teeth_img/lower.jpg" />
         				</div>
         			</ul>
-        			<ul class="half_size_milk_pictures col-md-2">
-       				<div >
+        			<ul class="half_size_milk_pictures col-md-2" style="margin-left: 5px;">
+       				<div ng-if='selectedPatient.milk_teeth === "1"' >
        				  <img ng-class='{healed: isBeenHealed("up_milk_nums"), active: isSelectedTooth("up_milk_nums"), active: isIncudedInCollection(workDone.teeth_nums, "up_milk_nums")}' ng-click='toggleSelected(workDone.teeth_nums, "up_milk_nums")' ng-src="assets/teeth_img/milk_upper.jpg" />
        				  <img ng-class='{healed: isBeenHealed("bottom_milk_nums"), active: isSelectedTooth("bottom_milk_nums"), active: isIncudedInCollection(workDone.teeth_nums, "bottom_milk_nums")}' ng-click='toggleSelected(workDone.teeth_nums, "bottom_milk_nums")' ng-src="assets/teeth_img/milk_lower.jpg" />
        				</div>
@@ -119,9 +119,6 @@
 							<div ng-show='form.nums.$error.required' class='custom'>Слід вказати вид робіт</div>
 							<div ng-show="form.nums.$dirty" class='custom'>Для вибору кількох варіантів використати клавішу ctr + ліва клавіша мишки. Таким же чином можна відмінити вибір</div>
 						</div>
-					</div>
-					<div class="col-sm-3">
-						<h4 class = "custom custom3" role='presentation' ng-repeat='num in workDone.teeth_nums'>{{num}},</h4>
 					</div>
 				</div>
 				<div class="form-group">
@@ -133,7 +130,7 @@
 						</div>
 					</div>
 				</div>
-				<button type="button" ng-click="triggerWorkForm()" class="btn btn-default"><h4>Відмінити створення</h4></button>
+				<button type="button" ng-click="triggerWorkForm(selectedAppointment)" class="btn btn-default"><h4>Відмінити створення</h4></button>
 				<button type="button" ng-click="addWork(workDone)" class="btn btn-default"><h4>Створити</h4></button>
 			</fieldset>
 		</form>
@@ -147,7 +144,7 @@
 					<a ng-click = 'deleteAppoint(appoint,selectedPatient)'>
 						<span class ='glyphicon glyphicon-trash'></span>
 					</a>
-					<a ng-click = 'triggerWorkForm()'>
+					<a ng-click = 'triggerWorkForm(appoint)'>
 						<span class ='glyphicon glyphicon-plus'></span>
 					</a>
 				</li>
@@ -194,18 +191,18 @@
 		</div>
 		<div class=' col-sm-6 float-right'>
 			<ul class=' teeth'>
-				<img  ng-repeat ='num in up_teeth_num' ng-click='findWorkOnTooth(num)' ng-src="assets/teeth_img/{{num}}.png" ng-class='{healed: isBeenHealed(num), active: isSelectedTooth(num)}'/>
+				<img  ng-repeat ='num in up_teeth_nums' ng-click='findWorkOnTooth(num)' ng-src="assets/teeth_img/{{num}}.png" ng-class='{healed: isBeenHealed(num), active: isSelectedTooth(num)}'/>
 			</ul>
 			<ul class=' teeth bottom '>
-				<img  ng-repeat ='num in bottom_teeth_num'  ng-click='findWorkOnTooth(num)' ng-src="assets/teeth_img/{{num}}.png" ng-class='{healed: isBeenHealed(num), active: isSelectedTooth(num)}'/>
+				<img  ng-repeat ='num in bottom_teeth_nums'  ng-click='findWorkOnTooth(num)' ng-src="assets/teeth_img/{{num}}.png" ng-class='{healed: isBeenHealed(num), active: isSelectedTooth(num)}'/>
 			</ul>
 		</div>
 		<div ng-if='selectedPatient.milk_teeth === "1"' class='col-sm-6 float-right'>
 			<ul class='milk col-sm-offset-2'>
-				<img ng-class='{healed: isBeenHealed(num), active: isSelectedTooth(num)}'  ng-repeat ='num in up_milk_num'  ng-click='findWorkOnTooth(num)' ng-src="assets/teeth_img/{{num}}.png"/>
+				<img ng-class='{healed: isBeenHealed(num), active: isSelectedTooth(num)}'  ng-repeat ='num in up_milk_nums'  ng-click='findWorkOnTooth(num)' ng-src="assets/teeth_img/{{num}}.png"/>
 			</ul>
 			<ul class=' milk bottom col-sm-offset-2'>
-				<img ng-class='{healed: isBeenHealed(num), active: isSelectedTooth(num)}' ng-repeat ='num in bottom_milk_num'  ng-click='findWorkOnTooth(num)' ng-src="assets/teeth_img/{{num}}.png"/>
+				<img ng-class='{healed: isBeenHealed(num), active: isSelectedTooth(num)}' ng-repeat ='num in bottom_milk_nums'  ng-click='findWorkOnTooth(num)' ng-src="assets/teeth_img/{{num}}.png"/>
 			</ul>
 		</div>
 	</div>

@@ -23,7 +23,8 @@ myClinic.controller("NavController", function($scope, $location, $timeout, Pagin
         }
     };
 
-    $scope.triggerWorkForm = function() {
+    $scope.triggerWorkForm = function(appointment) {
+        $scope.selectedAppointment = appointment;
         $scope.workForm = !$scope.workForm;
     };
 
@@ -83,11 +84,32 @@ myClinic.controller("NavController", function($scope, $location, $timeout, Pagin
     }
 
     $scope.addWork = function(work) {
-        var index = $scope.selectedPatient.appointments.indexOf($scope.selectedAppointment);
-        $scope.selectedAppointment.worksDone.push(work);
-        $scope.selectedPatient.appointments.splice(index, 1, $scope.selectedAppointment);
-        $scope.updateAppoint($scope.selectedPatient);
-        $scope.triggerWorkForm();
+        this.replace_placeholders(work);
+        UserService.post_appointments_performed_work(this.selectedAppointment.id, work, function(response) {
+            if (response.data["error"]) {
+                Flash.create('info', "Дані не вдалось зберегти")
+            } else {
+                Flash.create('success', "Запис успішно створено")
+            }
+        })
+        $timeout(function() {
+            $scope.triggerWorkForm($scope.selectedAppointment);
+            $scope.selectAppointment($scope.selectedAppointment);
+        }, 1, true);
+    }
+
+    $scope.replace_placeholders = function(work) {
+        teeth_dictionary = {
+            up_teeth_nums: this.up_teeth_nums,
+            bottom_teeth_nums: this.bottom_teeth_nums,
+            up_milk_nums: this.up_milk_nums,
+            bottom_milk_nums: this.bottom_milk_nums
+        };
+        var accumulate_replaced = work.teeth_nums.reduce(function(accumulator, el){
+            Number.isInteger(el) ? accumulator.push([el]) : accumulator.push(teeth_dictionary[el]);
+            return accumulator;
+        },[]);
+        work.teeth_nums = accumulate_replaced.reduce(function(a, b) { return a.concat(b);})
     }
 
     $scope.goHomeAndSelect = function(client, refresh) {
@@ -248,11 +270,13 @@ myClinic.controller("NavController", function($scope, $location, $timeout, Pagin
 
     $scope.deleteWork = function(work) {
         if (confirm("Ви впевнені, що хочете видалити запис про виконану роботу?")) {
-            UserService.delete_performed_work(work, function(response){
-                Flash.create('success',"Запис успішно видалено");
-                var work_index = $scope.worksDone.indexOf(work);
-                $scope.worksDone.splice(work_index, 1);
+            UserService.delete_performed_work(work, function(response) {
+                Flash.create('success', "Запис успішно видалено");
             });
+            $timeout(function() {
+                $scope.selectAppointment($scope.selectedAppointment);
+                $scope.paginationManage();
+            }, 1, true)
         }
     };
 
