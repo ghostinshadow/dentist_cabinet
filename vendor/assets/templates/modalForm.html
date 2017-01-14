@@ -1,0 +1,21 @@
+<div class="modal fade" >
+ <div class="modal-dialog modal-md" >
+   <div class="modal-content" >
+		<form name='form' class="form-horizontal form-group col-sm-offset-3 col-sm-6" style="background-color: white">
+			<fieldset>
+				<legend class='modal-header'>Новий прийом</legend>
+		  	<div class="modal-body">
+		  		<label for="inputDate" class="col-sm-3 custom"><h4>Дата прийому</h4></label>
+		  			<input type='date' class=" input-lg custom" ng-model='appointment.creation_time' required>
+		  	</div>
+		  	<div class="modal-footer">
+		  		<div class="col-sm2">
+		  			<button type="button" class="btn-sm btn-default" ng-click='closeModal()'>Закрити форму</button>
+		  			<button type="submit" class="btn btn-success" ng-click='createAppointment(appointment)' >Створити запис</button>
+		  		</div>
+		  	</div>  		
+			</fieldset>
+		</form>
+	 </div>
+	</div>
+</div>

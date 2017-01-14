@@ -10,11 +10,7 @@ class PatientsController < ApplicationController
 
   def create
     @patient = current_user.patients.create(patient_params)
-    if @patient.new_record?
-      render json: { errors: @patient.errors}
-    else
-      render json: @patient
-    end
+    render json: @patient.information_for_rendering
   end
 
   def update
@@ -30,6 +26,7 @@ class PatientsController < ApplicationController
   def destroy
     @patient = Patient.find(params[:id])
     @patient.destroy
+    render json: @patient.status_for_rendering
   end
 
   private

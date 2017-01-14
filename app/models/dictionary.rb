@@ -1,8 +1,8 @@
 class Dictionary < ApplicationRecord
   AVAILABLE_RESOURCES = JSON.parse(File.read(Rails.root.to_s + '/lib/dictionary_resources.json'))['resources']
-
-  belongs_to :user, dependent: :destroy
-  has_many :words
+  self.inheritance_column = "resource_type"
+  belongs_to :user
+  has_many :words, dependent: :destroy
 
   validates_presence_of :title, :user, :resource_type
   validates_length_of :title, minimum: 1, maximum: 75
@@ -43,21 +43,4 @@ class Dictionary < ApplicationRecord
     end
   end
 
-  def info_representation
-    case resource_type
-    when "Theraphy" then {therapy: {name: "Терапія", id: id}}
-    when "Ortodoncy" then {orthodoncy: {name: "Ортодонтія", id: id}}
-    when "Orthopedy" then {orthopedy: {name: "Ортопедія", id: id}}
-    when "Surgery" then {surgery: {name: "Хірургія", id: id}}
-    end
-  end
-
-  def translated_resource_type
-  	case resource_type
-    when "Theraphy" then "Терапія"
-    when "Ortodoncy" then "Ортодонтія"
-    when "Orthopedy" then "Ортопедія"
-    when "Surgery" then "Хірургія"
-    end
-  end
 end

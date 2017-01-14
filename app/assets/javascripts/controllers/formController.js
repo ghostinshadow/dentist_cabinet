@@ -2,8 +2,6 @@ var myClinic = angular.module("myClinic");
 
 myClinic.controller("FormController", function($scope, $interpolate, $timeout, $location, UserService, Flash) {
 
-    $scope.folderName = $interpolate('img/{{surname}}_{{name}}');
-
     $scope._Index = 0;
 
 
@@ -86,7 +84,8 @@ myClinic.controller("FormController", function($scope, $interpolate, $timeout, $
                 $scope.parseErrorsFromResponse(response);
                 Flash.create('info', "Дані не вдалось надіслати")
             } else {
-                $scope.goHomeAndSelect(patient, true);
+                $scope.goHome(response.data);
+                $scope.refreshAppointList(response.data);
                 Flash.create('success',"Запис успішно додано")
             }
         })

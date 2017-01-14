@@ -15,6 +15,7 @@ angular.module('myClinic')
         service.load_completed_work = load_completed_work;
         service.load_works_for_tooth = load_works_performed_on_tooth;
         service.post_appointments_performed_work = post_appointments_performed_work;
+        service.post_appointment = post_appointment;
 
         return service;
 
@@ -45,7 +46,7 @@ angular.module('myClinic')
             post_request = post_request_constructor('/patients', patient)
             return $http(post_request).then(function (response) {
                 callback(response);
-            }, handle_error("Shift!"));
+            }, handle_error);
         }
 
         function put_patient_info(patient, callback){
@@ -110,6 +111,13 @@ angular.module('myClinic')
             }, handle_error);
         }
 
+        function post_appointment(patient_id, appointment, callback){
+            post_request = post_request_constructor("/patients/"+ patient_id + "/appointments", appointment);
+            return $http(post_request).then(function(response){
+                callback(response);
+            }, handle_error);
+        }
+
         function merge(one, two) {
             for (var p in two) {
                 try {
@@ -131,6 +139,7 @@ angular.module('myClinic')
         };
 
         function handle_error(response) {
+            debugger;
             Flash.create("danger", "Не вдалось з'єднатись з сервером");
         };
 

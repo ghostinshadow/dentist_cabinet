@@ -30,10 +30,10 @@
 				<td>{{filterDictionaryByKey(towns, "town_id").body}}</td>
 				<td>{{filterDictionaryByKey(doctors, "doctor_id").body}}</td>
 				<td>{{selectedPatient.telephone}}</td>
-				<td>{{selectedPatient.birth_day}}</td>
+				<td>{{displayBirthday(selectedPatient.birth_day)}}</td>
 				<td>{{selectedPatient.email}}</td>
 				<td>
-					<a ng-click = 'createAppointment(selectedPatient)'>
+					<a ng-click = 'showModal(selectedPatient)'>
 						<span class ='glyphicon glyphicon-plus center_up'></span>
 					</a>
 				</td>
@@ -139,7 +139,7 @@
 		<div class="col-sm-2 medium">
 			<h3 class='custom'>Прийоми пацієнта</h3>
 			<ul class='list-group '>
-				<li class="list-group-item customList custom" ng-repeat ='appoint in appointments | startFrom: pagination.page * pagination.perPage | limitTo: pagination.perPage' ng-class='{activeAppoint: isSelectedAppointment(appoint)}' ng-click='selectAppointment(appoint)' ><h4>{{appoint.creation_time}}
+				<li class="list-group-item customList custom" ng-repeat ='appoint in appointments | orderBy: "-creation_time" | startFrom: pagination.page * pagination.perPage | limitTo: pagination.perPage' ng-class='{activeAppoint: isSelectedAppointment(appoint)}' ng-click='selectAppointment(appoint)' ><h4>{{appoint.creation_time}}
 					</h4>
 					<a ng-click = 'deleteAppoint(appoint,selectedPatient)'>
 						<span class ='glyphicon glyphicon-trash'></span>

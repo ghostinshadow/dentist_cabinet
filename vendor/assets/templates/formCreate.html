@@ -32,11 +32,11 @@
 				</div>				
 			</div>
 		</div>
-		<div class="form-group">
+		<div class="form-group" ng-init="newClient.doctor_id=newClient.doctor_id || ''">
 			<label for="inputDoctorId" class="col-sm-3 control-label custom"><h3>Лікар</h3></label>
 			<div class="col-sm-6">
 		  	<select class="form-control input-lg custom" ng-model='newClient.doctor_id' convert-to-number required>
-		  	  <option value="">Оберіть лікаря</option>
+		  	  <option value=''>Оберіть лікаря</option>
 				  <option ng-repeat="doctor in doctors" value="{{doctor.id}}">{{doctor.body}}</option>
 				</select>
 				<div ng-show='form.doctor_id.$invalid && form.doctor_id.$dirty '>
@@ -64,7 +64,7 @@
 			<input type='date' class="form-control input-lg custom" ng-model='newClient.birth_day' required>
 		</div>
 	</div>
-	<div class="form-group">
+	<div class="form-group" ng-init="newClient.town_id=newClient.town_id || ''">
 		<label for="inputTown" class="col-sm-3 control-label custom"><h3>Місто</h3></label>
 		<div class="col-sm-4">
 			<select  class="form-control input-lg custom" ng-model='newClient.town_id' convert-to-number>

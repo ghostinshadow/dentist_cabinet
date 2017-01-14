@@ -1,5 +1,5 @@
 var myClinic = angular.module('myClinic', ['ngResource', 'ngRoute',
-    'simplePagination', 'ngAnimate', 'ngTouch', "ngFlash"
+    'simplePagination', 'ngAnimate', 'ngTouch', "ngFlash", 'angularModalService'
 ]);
 
 myClinic.config(["$routeProvider",
@@ -7,7 +7,7 @@ myClinic.config(["$routeProvider",
         $routeProvider.
         when("/home", {
             templateUrl: "assets/main.html",
-            controller: "MainController"
+            controller: "DictionariesController"
         }).
         when("/createForm", {
             templateUrl: "assets/formCreate.html",

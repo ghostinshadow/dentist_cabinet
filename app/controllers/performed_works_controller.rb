@@ -15,12 +15,13 @@ class PerformedWorksController < ApplicationController
   def create
   	creation_params = performed_work_params.merge(teeth_nums: params[:teeth_nums].uniq.map(&:to_s))
   	@performed = @appointment.performed_works.create(creation_params)
-  	render json: (@performed.persisted? ? {status: 200} : {error: 404})
+  	render json: @performed.information_for_rendering
   end
 
   def destroy
   	@performed_work = PerformedWork.find(params[:id])
   	@performed_work.destroy
+  	render json: @performed_work.status_for_rendering
   end
 
   private

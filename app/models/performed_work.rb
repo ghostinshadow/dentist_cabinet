@@ -1,4 +1,6 @@
 class PerformedWork < ApplicationRecord
+  include InformationRenderable
+  
 	belongs_to :appointment
 	serialize :teeth_nums, Array
 	belongs_to :word
@@ -13,5 +15,9 @@ class PerformedWork < ApplicationRecord
 
   def to_list_element
   	"#{word.translated_resource_type}: #{word.body}" 
+  end
+
+  def information_for_rendering
+  	persisted? ? {status: 200} : {error: 404}
   end
 end

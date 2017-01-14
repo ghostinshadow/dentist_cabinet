@@ -6,7 +6,7 @@ class User < ApplicationRecord
   after_create :create_dictionaries
 
   has_many :patients
-  has_many :dictionaries
+  has_many :dictionaries, dependent: :destroy
 
   private
 

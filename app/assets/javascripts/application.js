@@ -21,10 +21,12 @@
 //= require angular-touch
 //= require angular-flash
 //= require simplePagination
+//= require angular-modal-service
 //= require app
 //= require services/resources_fetcher
 //= require controllers/formController
 //= require controllers/mainController
-//= require controllers/navController
+//= require controllers/dictionariesController
+//= require controllers/modalController
 
 

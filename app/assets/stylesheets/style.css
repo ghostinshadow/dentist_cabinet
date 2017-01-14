@@ -302,3 +302,7 @@ background: transparent;
 	height: 60px;
   width: 160px;	
 }
+
+.modal-open {
+    overflow: scroll;
+}
