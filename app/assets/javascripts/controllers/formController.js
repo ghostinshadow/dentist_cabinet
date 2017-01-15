@@ -91,6 +91,19 @@ myClinic.controller("FormController", function($scope, $interpolate, $timeout, $
         })
     };
 
+    $scope.updateForm = function(patient) {
+        UserService.update_patient(patient, function(response){
+            if (response.data["errors"]) {
+                $scope.parseErrorsFromResponse(response);
+                Flash.create('info', "Дані не вдалось оновити")
+            } else {
+                $scope.goHome(response.data);
+                Flash.create('success',"Запис успішно оновлено")
+            }
+        })
+
+    };
+
     $scope.parseErrorsFromResponse = function(response) {
         angular.forEach(response.data["errors"], function(message, key) {
             $scope.form[key].$dirty = true

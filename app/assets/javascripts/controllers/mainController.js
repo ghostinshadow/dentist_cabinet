@@ -239,20 +239,6 @@ myClinic.controller("MainController", function($scope, $location, $timeout, Pagi
         return (birth_day instanceof Date) ? birth_day.toISOString().substring(0, 10) : birth_day;
     }
 
-    $scope.updateForm = function(patient) {
-        UserService.update_patient(patient, function(response){
-            if (response.data["errors"]) {
-                $scope.parseErrorsFromResponse(response);
-                Flash.create('info', "Дані не вдалось оновити")
-            } else {
-                $scope.goHome(response.data);
-                patient.birth_day = response.data.birth_day;
-                Flash.create('success',"Запис успішно оновлено")
-            }
-        })
-
-    };
-
     $scope.deleteAppoint = function(appoint, client) {
         if (confirm("Ви впевнені, що хочете видалити цей прийом?")) {
             UserService.delete_appointment(appoint, function(response){

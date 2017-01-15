@@ -5,7 +5,7 @@ class DictionariesController < ApplicationController
   # GET /dictionaries
   # GET /dictionaries.json
   def index
-    @dictionaries = Dictionary.all
+    @dictionaries = current_user.dictionaries
   end
 
   # GET /dictionaries/1
@@ -13,54 +13,8 @@ class DictionariesController < ApplicationController
   def show
   end
 
-  # GET /dictionaries/new
-  def new
-    @dictionary = Dictionary.new
-  end
-
-  # GET /dictionaries/1/edit
-  def edit
-  end
-
   # POST /dictionaries
   # POST /dictionaries.json
-  def create
-    @dictionary = Dictionary.new(dictionary_params)
-
-    respond_to do |format|
-      if @dictionary.save
-        format.html { redirect_to @dictionary, notice: 'Dictionary was successfully created.' }
-        format.json { render :show, status: :created, location: @dictionary }
-      else
-        format.html { render :new }
-        format.json { render json: @dictionary.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /dictionaries/1
-  # PATCH/PUT /dictionaries/1.json
-  def update
-    respond_to do |format|
-      if @dictionary.update(dictionary_params)
-        format.html { redirect_to @dictionary, notice: 'Dictionary was successfully updated.' }
-        format.json { render :show, status: :ok, location: @dictionary }
-      else
-        format.html { render :edit }
-        format.json { render json: @dictionary.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /dictionaries/1
-  # DELETE /dictionaries/1.json
-  def destroy
-    @dictionary.destroy
-    respond_to do |format|
-      format.html { redirect_to dictionaries_url, notice: 'Dictionary was successfully destroyed.' }
-      format.json { head :no_content }
-    end
-  end
 
   def doctors_and_cities
     doctor_dict, cities_dict = current_user.dictionaries.where(resource_type: ["Doctors", "Cities"])

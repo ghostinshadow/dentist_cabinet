@@ -139,7 +139,6 @@ angular.module('myClinic')
         };
 
         function handle_error(response) {
-            debugger;
             Flash.create("danger", "Не вдалось з'єднатись з сервером");
         };
 

@@ -11,6 +11,9 @@
       %flash-message
     .nav.navbar-nav.pull-right
       .navbar-header.navbar-right
+        %button.navbar-brand
+          %a{"href"=>"/dictionaries", "target"=>"_self"}
+            %span.glyphicon.glyphicon-book
         %button.navbar-brand{"ng-click" => "go('/createForm', true)"}
           %span.glyphicon.glyphicon-plus
           %span.glyphicon.glyphicon-user

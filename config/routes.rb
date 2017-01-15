@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  resources :words
   resources :dictionaries do
+    resources :words, shallow: true
     collection do
       get :doctors_and_cities
       get :work_specific_dictionaries
