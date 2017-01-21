@@ -1,10 +1,4 @@
 %hr
 - present(object: @word, helper_object: @dictionary) do |word_presenter|
   .col-md-8.col-md-offset-2
-    = word_presenter.render_form do |f|
-      .form-group
-        = f.label 'Слово'
-        = f.text_field :body, class: 'form-control'
-      .actions.form-actions
-        = f.submit 'Зберегти', class: 'btn btn-success pull-right'
-        = word_presenter.link_to_dictionary
+    = word_presenter.render_form

@@ -9,10 +9,8 @@
 
   %tbody
     - @words.each do |word|
-      %tr
-        %td= word.body
-        %td= link_to 'Змінити', edit_word_path(word, dictionary_id: @dictionary.id)
-        %td= link_to 'Видалити', word_path(word, dictionary_id: @dictionary.id), :method => :delete, :data => { :confirm => 'Are you sure?' }
+      - present(object: word, helper_object: @dictionary) do |word_presenter|
+        - word_presenter.table_row
 
 %br
 

@@ -14,15 +14,17 @@
             %button.navbar-brand
               %a{"href"=>root_path, "target"=>"_self"}
                 %span.glyphicon.glyphicon-home
-    - if notice
-      .alert.alert-success.alert-dismissible.col-md-6.col-md-offset-3
-        = notice
-        %button{ 'type' => "button", 'class' => "close", "data-dismiss" => "alert", "aria-label" => "Close"}
-          %span{ "aria-hidden" => "true"}= 'x';
-    - if alert
-      .alert.alert-danger.alert-dismissible.col-md-6.col-md-offset-3
-        = alert
-        %button{ 'type' => "button", 'class' => "close", "data-dismiss" => "alert", "aria-label" => "Close"}
-          %span{ "aria-hidden" => "true"}= 'x';
+    .row
+      - if notice
+        .alert.alert-success.alert-dismissible.col-md-6.col-md-offset-3
+          = notice
+          %button{ 'type' => "button", 'class' => "close", "data-dismiss" => "alert", "aria-label" => "Close"}
+            %span{ "aria-hidden" => "true"}= 'x';
+      - if alert
+        .alert.alert-danger.alert-dismissible.col-md-6.col-md-offset-3
+          = alert
+          %button{ 'type' => "button", 'class' => "close", "data-dismiss" => "alert", "aria-label" => "Close"}
+            %span{ "aria-hidden" => "true"}= 'x';
+    %br
     .container
       = yield
