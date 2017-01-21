@@ -14,8 +14,10 @@
 //= require jquery_ujs
 //= require bootstrap-alert
 //= require twitter/bootstrap
+//= require bootstrap-filestyle.min
 //= require turbolinks
 //= require angular
+//= require angularjs-file-upload
 //= require angular-animate
 //= require angular-resource
 //= require angular-route
@@ -29,5 +31,4 @@
 //= require controllers/mainController
 //= require controllers/dictionariesController
 //= require controllers/modalController
-
-
+//= require controllers/galleryController

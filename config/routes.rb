@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     resources :appointments, shallow: true do
     	resources :performed_works
     end
+    resources :patient_pictures, shallow: true, except: [:new, :edit, :update]
   end
   get :works_performed_on_tooth, controller: "performed_works"
   devise_for :users

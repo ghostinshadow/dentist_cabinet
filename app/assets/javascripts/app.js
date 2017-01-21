@@ -1,5 +1,6 @@
 var myClinic = angular.module('myClinic', ['ngResource', 'ngRoute',
-    'simplePagination', 'ngAnimate', 'ngTouch', "ngFlash", 'angularModalService'
+    'simplePagination', 'ngAnimate', 'ngTouch', "ngFlash",
+     'angularModalService', 'angularFileUpload'
 ]);
 
 myClinic.config(["$routeProvider",
@@ -15,7 +16,7 @@ myClinic.config(["$routeProvider",
         }).
         when("/photoGallery", {
             templateUrl: "assets/photoGallery.html",
-            controller: "FormController"
+            controller: "galleryController"
         }).
         otherwise({
             redirectTo: "/home"

@@ -1,9 +1,10 @@
 class Patient < ApplicationRecord
 	include InformationRenderable
-	
+
 	belongs_to :user
 	has_many :appointments, dependent: :destroy
 	has_many :performed_works, through: :appointments
+	has_many :patient_pictures, dependent: :destroy
 
 	validates_presence_of :first_name, :last_name, :telephone	
 

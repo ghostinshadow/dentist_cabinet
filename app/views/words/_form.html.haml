@@ -1,17 +1,10 @@
 %hr
-- url = @word.new_record? ? dictionary_words_path(@dictionary, dictionary_id: @dictionary.id) : word_path(@word, dictionary_id: @dictionary.id)
-.col-md-8.col-md-offset-2
-  = form_for @word, url: url do |f|
-    - if @word.errors.any?
-      #error_explanation
-        %h2= "#{pluralize(@word.errors.count, "error")} prohibited this word from being saved:"
-        %ul
-          - @word.errors.full_messages.each do |msg|
-            %li= msg
-    .form-group
-      = f.label 'Слово'
-      = f.text_field :body, class: 'form-control'
-    .actions.form-actions
-      = f.submit 'Зберегти', class: 'btn btn-success pull-right'
-      = link_to 'Назад', dictionary_words_path(@dictionary), class: 'btn btn-danger'
-
+- present(object: @word, helper_object: @dictionary) do |word_presenter|
+  .col-md-8.col-md-offset-2
+    = word_presenter.render_form do |f|
+      .form-group
+        = f.label 'Слово'
+        = f.text_field :body, class: 'form-control'
+      .actions.form-actions
+        = f.submit 'Зберегти', class: 'btn btn-success pull-right'
+        = word_presenter.link_to_dictionary
