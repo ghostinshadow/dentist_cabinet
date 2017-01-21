@@ -17,6 +17,7 @@ angular.module('myClinic')
         service.post_appointments_performed_work = post_appointments_performed_work;
         service.post_appointment = post_appointment;
         service.get_pictures = get_pictures_urls;
+        service.delete_picture = delete_picture;
 
         return service;
 
@@ -124,6 +125,13 @@ angular.module('myClinic')
             return $http(get_request).then(function(response){
                 callback(response);
             }, handle_error);
+        }
+
+        function delete_picture(picture_id, callback){
+            post_request = post_request_constructor("/patient_pictures/" + picture_id, {id: picture_id}, "DELETE");
+            return $http(post_request).then(function(response){
+                callback(response);
+            }, handle_error)
         }
 
         function merge(one, two) {

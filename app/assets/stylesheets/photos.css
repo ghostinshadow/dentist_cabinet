@@ -64,13 +64,13 @@
    max-width: 100%;
 }
 .bordered{
-    border: 15px solid #aba4a4;
-    border-radius: 5px;
+    border: 5px solid #aba4a4;
+    border-radius: 2px;
 }
 .slider_photo {
-    height: 58em;
+    height: 40em;
     position: relative;
-    width: 100em;
+    width: 66em;
 
     -webkit-perspective: 1000px;
     perspective: 1000px;
@@ -123,4 +123,7 @@ input[readonly] {
   background-color: white !important;
   color: #aba4a4;;
   cursor: text !important;
+}
+.gallery{
+  margin-top: 6em;
 }

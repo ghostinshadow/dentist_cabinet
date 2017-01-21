@@ -84,11 +84,9 @@ myClinic.controller("MainController", function($scope, $location, $timeout, Pagi
             } else {
                 Flash.create('success', "Запис успішно створено")
             }
-        })
-        $timeout(function() {
             $scope.triggerWorkForm($scope.selectedAppointment);
             $scope.selectAppointment($scope.selectedAppointment);
-        }, 1, true);
+        })
     }
 
     $scope.replace_placeholders = function(work) {

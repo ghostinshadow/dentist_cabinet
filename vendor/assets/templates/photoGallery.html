@@ -1,37 +1,64 @@
-<div class='row'><h2 class='col-sm-offset-5 col-sm-5'>{{selectedPatient.last_name}}  {{selectedPatient.first_name}} -  Фотографії</h2>
-</div>
-<div class='col-sm-2'>
-	<h3 class='exclus'>Додати світлини</h2>
-	<div class="input-group">
-		<input type="file" nv-file-select uploader="uploader" name="patient[pictures][]" multiple/><br/>
-		<a ng-disabled='!files' ng-click = 'upload()'>
-			<span class ='glyphicon glyphicon-cloud-upload float-left exclus'></span>
-		</a>
-	</div>
-	<span class="help-block">
-		<h3 class='exclus'>Виберіть одну або декілька світлин)</h3>	
-	</span>
-</div>
-<div ng-if='photos.length === 0' class="col-sm-offset-3 col-sm-9">
-	<h2>Цей пацієнт не має світлин. Будь-ласка додайте для перегляду</h2>
-</div>
-<div ng-if='photos' ng-class='{bordered: photos.length>0}' class="container slider_photo col-sm-9">
-	
-	<!-- enumerate all photos -->
-	<img ng-repeat="photo in photos track by $index" class="slide" ng-show="isActive($index)" ng-src="{{photo.picture.url}}" />
-	
-	<!-- prev / next controls -->
-	<a  class="arrow prev"  ng-click="showPrev()">
-		<img src='assets/prev.png' class="arrow prev"/>
-	</a>
-	<a  class="arrow next"  ng-click="showNext()">
-		<img src='assets/next.png' class="arrow next"/>
-	</a>
-	
-	<!-- extra navigation controls -->
-	<ul class="nav_bottom">
-		<li ng-repeat="photo in photos track by $index" ng-class="{'active':isActive($index)}">
-			<img src="{{photo.picture.url}}"  ng-click="showPhoto($index);" />
-		</li>
-	</ul>
+<div class="gallery">
+  <div class='row'>
+    <h3 class='col-sm-offset-4 col-sm-2 text-right'>{{selectedPatient.last_name}}  {{selectedPatient.first_name}} -  Фотографії</h3>
+    <div class='col-sm-2'>
+      	<div class="col-sm-6">
+      		<input type="file" nv-file-select uploader="uploader" name="patient[pictures][]" multiple/>
+      	</div>
+      	<div class="col-sm-2">
+      		  <a ng-disabled='!files' ng-click = 'upload()'>
+      			  <span class ='glyphicon glyphicon-cloud-upload float-right'></span>
+      		  </a>
+      	</div>
+      </div>
+  </div>
+  <div ng-if='photos.length === 0' class="col-sm-offset-3 col-sm-9">
+  	<h2>Цей пацієнт не має світлин. Будь-ласка додайте для перегляду</h2>
+  </div>
+  <br/>
+  <div ng-if='photos' ng-class='{bordered: photos.length>0}' class=" container slider_photo col-sm-6">
+  	
+  	<!-- enumerate all photos -->
+  	<a ng-click = 'deletePicture(1)'>
+  	  <span class="glyphicon glyphicon-remove pull-right" style="z-index: 100"></span>
+  	</a>
+  	<img ng-repeat="photo in photos track by $index" class="slide" ng-show="isActive1($index)" ng-src="{{photo.picture.url}}" />
+  	
+  	<!-- prev / next controls -->
+  	<a  class="arrow prev"  ng-click="showPrev1()">
+  		<img src='assets/prev.png' class="arrow prev"/>
+  	</a>
+  	<a  class="arrow next"  ng-click="showNext1()">
+  		<img src='assets/next.png' class="arrow next"/>
+  	</a>
+  	
+  	<!-- extra navigation controls -->
+  	<ul class="nav_bottom">
+  		<li ng-repeat="photo in photos track by $index | limitTo: 8" ng-class="{'active':isActive1($index)}">
+  			<img src="{{photo.picture.url}}"  ng-click="showPhoto1($index);" />
+  		</li>
+  	</ul>
+  </div>
+  <div ng-if='photos' ng-class='{bordered: photos.length>0}' class="container slider_photo col-sm-6">
+  	<a ng-click = 'deletePicture(2)'>
+  	  <span class="glyphicon glyphicon-remove pull-right" style="z-index: 100"></span>
+  	</a>
+  	<!-- enumerate all photos -->
+  	<img ng-repeat="photo in photos track by $index" class="slide" ng-show="isActive2($index)" ng-src="{{photo.picture.url}}" />
+  	
+  	<!-- prev / next controls -->
+  	<a  class="arrow prev"  ng-click="showPrev2()">
+  		<img src='assets/prev.png' class="arrow prev"/>
+  	</a>
+  	<a  class="arrow next"  ng-click="showNext2()">
+  		<img src='assets/next.png' class="arrow next"/>
+  	</a>
+  	
+  	<!-- extra navigation controls -->
+  	<ul class="nav_bottom">
+  		<li ng-repeat="photo in photos track by $index | limitTo: 8" ng-class="{'active':isActive2($index)}">
+  			<img src="{{photo.picture.url}}"  ng-click="showPhoto2($index);" />
+  		</li>
+  	</ul>
+  </div>
 </div>

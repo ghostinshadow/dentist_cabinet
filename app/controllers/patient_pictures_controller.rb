@@ -1,5 +1,5 @@
 class PatientPicturesController < ApplicationController
-	before_action :set_patient, except: [:delete]
+	before_action :set_patient, except: [:destroy]
 	respond_to :json
 
 	def index
@@ -12,7 +12,7 @@ class PatientPicturesController < ApplicationController
     render json: @picture.information_for_rendering
 	end
 
-	def delete
+	def destroy
 		@picture = PatientPicture.find_by(id: params[:id])
 		@picture.destroy
 		render json: @picture.status_for_rendering

@@ -47,13 +47,13 @@ a>span{
 	font-size: 1.2em;
 }
 button>span{
-	font-size: 1.2em;
+	font-size: 1.3em;
 }
 li>a>span{
-	font-size: 1.5em;
+	font-size: 1.6em;
 }
 li>a>span:hover{
-	font-size: 1.7em;
+	color: #55b09e;
 }
 a>span.exclus{
 	margin-top: 0px;
@@ -67,12 +67,9 @@ a>span.exclus{
 }
 a>span.exclus:hover, a>span.exclus:focus{
 	color: #55b09e;
-	font-size: 1.1em;
 }
 button>span:hover, button>span:focus,a>span:hover, a>span:focus{
 	color: #55b09e;
-	font-size: 1.4em;
-	margin-top: 0px;
 }
 a:hover{
 	color: #55b09e;

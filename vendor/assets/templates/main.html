@@ -54,13 +54,13 @@
 		</table>
 	</div>
 	<div ng-if='workForm' class="col-sm-offset-1" >
-		<form name='form' class="form-horizontal col-sm-offset-1 col-sm-9">
+		<form name='form'  class="form-horizontal col-sm-offset-1 col-sm-9">
 			<fieldset>
 				<legend class='custom' >Форма для створення прийому</legend>
 				<div class="form-group">
 					<label for="inputTypeOfWork" class="col-sm-3 control-label custom"><h4>Тип робіт</h4></label>
 					<div class="col-sm-6">
-						<select class="form-control input-lg custom" ng-model='workDone.dictionary_id'required>
+						<select name='dictionary_id' class="form-control input-lg custom"  ng-model='workDone.dictionary_id' required>
 						  <option value="">Оберіть тип робіт</option>
 							<option ng-repeat="dictionary in dictionaries_names" value="{{dictionary.id}}">{{dictionary.name}}</option>
 						</select>
@@ -72,7 +72,7 @@
 				<div class="form-group" ng-if='workDone.dictionary_id'>
 					<label for="inputExactWork" class="col-sm-3 control-label custom"><h4>Вид робіт</h4></label>
 					<div class="col-sm-6">
-						<select class="form-control input-lg custom" ng-model='workDone.word_id' required>
+						<select name='work_id' class="form-control input-lg custom" ng-model='workDone.word_id' required>
 						  <option value="">Оберіть вид робіт</option>
 						  <option ng-repeat="work in work_specific_dictionaries[workDone.dictionary_id]"
 						   value="{{work.id}}">{{work.body}}</option>
@@ -117,11 +117,10 @@
         		</div>					
 						<div ng-show='form.nums.$invalid && form.nums.$dirty '>
 							<div ng-show='form.nums.$error.required' class='custom'>Слід вказати вид робіт</div>
-							<div ng-show="form.nums.$dirty" class='custom'>Для вибору кількох варіантів використати клавішу ctr + ліва клавіша мишки. Таким же чином можна відмінити вибір</div>
 						</div>
 					</div>
 				</div>
-				<div class="form-group">
+				<div class="form-group" ng-init="form.$setDirty()">
 					<label for="inputPrice" class="col-sm-3 control-label custom"><h4>Ціна</h4></label>
 					<div class="col-sm-5">
 						<input type="number" name='price' class="form-control input-lg custom" id="inputPrice" ng-model='workDone.price' ng-pattern='/^[0-9]+$/' required>
@@ -131,7 +130,7 @@
 					</div>
 				</div>
 				<button type="button" ng-click="triggerWorkForm(selectedAppointment)" class="btn btn-default"><h4>Відмінити створення</h4></button>
-				<button type="button" ng-click="addWork(workDone)" class="btn btn-default"><h4>Створити</h4></button>
+				<button type="button" ng-disabled='form.$dirty && form.$invalid' ng-click="addWork(workDone)" class="btn btn-default"><h4>Створити</h4></button>
 			</fieldset>
 		</form>
 	</div>

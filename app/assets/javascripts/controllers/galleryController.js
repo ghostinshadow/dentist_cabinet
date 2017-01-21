@@ -16,61 +16,66 @@ myClinic.controller("galleryController", function($scope, $interpolate,
         $scope.fetch_pictures();
     };
 
-    $scope._Index = 0;
+    $scope._Index1 = 0;
+    $scope._Index2 = 0;
     $scope.photos = [];
 
     $scope.fetch_pictures = function() {
         UserService.get_pictures($scope.selectedPatient.id, function(response) {
-        	  debugger;
             $scope.photos = response.data;
         })
     }
 
-
-    $scope.isActive = function(index) {
-        return $scope._Index === index;
-    };
-
-    $scope.showPrev = function() {
-        $scope._Index = ($scope._Index > 0) ? --$scope._Index : $scope.photos.length - 1;
-    };
-
-    $scope.showNext = function() {
-        $scope._Index = ($scope._Index < $scope.photos.length - 1) ? ++$scope._Index : 0;
-    };
-
-    $scope.showPhoto = function(index) {
-        $scope._Index = index;
-    };
-
-
-    $scope.filesChanged = function(elm) {
-        var count, len = elm.files.length;
-        ((elm.files.length > 1)) ? count = len: count = 1;
-        $timeout(function() {
-            $scope.files = elm.files;
-            if (len > 0) {
-                $scope.count = count + ' файл(и) обрано';
-            }
-        })
-
-    };
-
-    $scope.photosRead = function() {
-
-    };
-
-    $scope.photosRead();
-
-    $scope.writeFile = function(name, path, data) {
-        fs.writeFile(path + '/' + name,
-            data,
-            function(err) {
-                if (err) throw err;
-            }
-        )
+    $scope.deletePicture = function(container_number){
+			var element_for_deletion = null;
+			if(container_number == 1){
+				element_for_deletion = this.photos[this._Index1]
+			}else{
+				element_for_deletion = this.photos[this._Index2]
+			}
+			UserService.delete_picture(element_for_deletion.id, function(response){
+        if (response.data["error"]) {
+            Flash.create('info', "Дані не вдалось видалити")
+        } else {
+            Flash.create('success', "Картинку видалено")
+        }
+        $scope.fetch_pictures();
+			})
 
     }
+
+
+    $scope.isActive1 = function(index) {
+        return $scope._Index1 === index;
+    };
+
+    $scope.showPrev1 = function() {
+        $scope._Index1 = ($scope._Index1 > 0) ? --$scope._Index1 : $scope.photos.length - 1;
+    };
+
+    $scope.showNext1 = function() {
+        $scope._Index1 = ($scope._Index1 < $scope.photos.length - 1) ? ++$scope._Index1 : 0;
+    };
+
+    $scope.showPhoto1 = function(index) {
+        $scope._Index1 = index;
+    };
+
+    $scope.isActive2 = function(index) {
+        return $scope._Index2 === index;
+    };
+
+    $scope.showPrev2 = function() {
+        $scope._Index2 = ($scope._Index2 > 0) ? --$scope._Index2 : $scope.photos.length - 1;
+    };
+
+    $scope.showNext2 = function() {
+        $scope._Index2 = ($scope._Index2 < $scope.photos.length - 1) ? ++$scope._Index2 : 0;
+    };
+
+    $scope.showPhoto2 = function(index) {
+        $scope._Index2 = index;
+    };
 
     $scope.upload = function() {
        this.uploader.uploadAll();
