@@ -12,12 +12,9 @@
  *
  *= require bootstrap_and_overrides
  *= require jquery-ui
- *= require pass_styles
  *= require photos
  *= require style
  *= require words
  *= require angular-flash
  *= require_self
  */
-
- require scaffolds

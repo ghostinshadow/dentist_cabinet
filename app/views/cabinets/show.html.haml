@@ -12,10 +12,15 @@
     .nav.navbar-nav.pull-right
       .navbar-header.navbar-right
         %button.navbar-brand
-          %a{"href"=>"/dictionaries", "target"=>"_self"}
-            %span.glyphicon.glyphicon-book
+          %a{ 'rel' => "nofollow", 'data-method' => "delete", 'href' => "/users/sign_out", "target"=>"_self"}
+            %span.glyphicon.glyphicon-log-out
+    .nav.navbar-nav.pull-right
+      .navbar-header.navbar-right
         %button.navbar-brand{"ng-click" => "go('/createForm', true)"}
           %span.glyphicon.glyphicon-plus
           %span.glyphicon.glyphicon-user
+        %button.navbar-brand
+          %a{"href"=>"/dictionaries", "target"=>"_self"}
+            %span.glyphicon.glyphicon-book
 
 %div{"ng-view" => ""}

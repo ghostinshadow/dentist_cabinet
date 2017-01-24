@@ -1,11 +1,27 @@
 FactoryGirl.define do
   factory :patient do
-    last_name "MyString"
-    first_name "MyString"
-    user_id 1
-    doctor_id 1
+    last_name "Щавель"
+    first_name "Семен"
+    association :user, factory: :user
+    association :word, factory: :doctor_word1
+    birth_day "1992-12-27"
+    association :town, factory: :town_word1
+    telephone "334-777-33-43"
+    backup_telephone "4343243"
+    email "test@gmail.com"
     milk_teeth false
-    birth_day "2016-12-27"
-    town_id 1
+
+    factory :patient_mari do
+    	last_name "Петренко"
+    	first_name "Марія"
+    	association :word, factory: :doctor_word2
+      birth_day "1991-12-27"
+      association :town, factory: :town_word2
+    endP
+
+    factory :grown_up do
+			milk_teeth true
+		end
+
   end
 end

@@ -1,6 +1,6 @@
 var myClinic = angular.module("myClinic");
 
-myClinic.controller("MainController", function($scope, $location, $timeout, Pagination, UserService, Flash, ModalService) {
+myClinic.controller("MainController", function($scope, $location, $window, $timeout, Pagination, UserService, Flash, ModalService) {
     UserService.get_patient_creation_dictionaries(function(response){
         $scope.doctors = response.data.doctors;
         $scope.towns = response.data.cities;
@@ -14,6 +14,13 @@ myClinic.controller("MainController", function($scope, $location, $timeout, Pagi
             $scope.dictionaries_names.push(element);
         });
     })
+
+    $scope.sighOut = function(){
+        UserService.destroy_session(function(response){
+            debugger;
+            // $window.open('/', '_self');
+        })
+    }
 
     $scope.showModal = function() {
         $scope.hideWorkForm();

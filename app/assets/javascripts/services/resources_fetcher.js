@@ -18,6 +18,7 @@ angular.module('myClinic')
         service.post_appointment = post_appointment;
         service.get_pictures = get_pictures_urls;
         service.delete_picture = delete_picture;
+        service.destroy_session = destroy_session;
 
         return service;
 
@@ -130,6 +131,14 @@ angular.module('myClinic')
         function delete_picture(picture_id, callback){
             post_request = post_request_constructor("/patient_pictures/" + picture_id, {id: picture_id}, "DELETE");
             return $http(post_request).then(function(response){
+                callback(response);
+            }, handle_error)
+        }
+
+        function destroy_session(callback){
+            post_request = post_request_constructor("/users/sign_out", {}, "DELETE");
+            return $http(post_request).then(function(response){
+                console.log(response)
                 callback(response);
             }, handle_error)
         }

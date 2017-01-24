@@ -49,10 +49,11 @@ ActiveRecord::Schema.define(version: 20170121131435) do
     t.date     "birth_day"
     t.integer  "town_id"
     t.string   "telephone"
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
     t.string   "email",            limit: 50
     t.string   "backup_telephone", limit: 20
+    t.string   "pictures",                     default: [],              array: true
     t.index ["doctor_id"], name: "index_patients_on_doctor_id", using: :btree
     t.index ["town_id"], name: "index_patients_on_town_id", using: :btree
     t.index ["user_id"], name: "index_patients_on_user_id", using: :btree

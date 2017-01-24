@@ -10,12 +10,6 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require jquery
-//= require jquery_ujs
-//= require bootstrap-alert
-//= require twitter/bootstrap
-//= require bootstrap-filestyle.min
-//= require turbolinks
 //= require angular
 //= require angularjs-file-upload
 //= require angular-animate
@@ -32,3 +26,9 @@
 //= require controllers/dictionariesController
 //= require controllers/modalController
 //= require controllers/galleryController
+//= require jquery
+//= require jquery_ujs
+//= require bootstrap-alert
+//= require twitter/bootstrap
+//= require bootstrap-filestyle.min
+//= require turbolinks

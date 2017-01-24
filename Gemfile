@@ -32,7 +32,7 @@ gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
 gem 'angularjs-file-upload-rails', '~> 2.4.1'
 gem "rails_best_practices"
 gem "reek"
-
+gem "selenium-webdriver"
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
@@ -45,7 +45,10 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
   gem 'rspec-rails', '~> 3.5'
+  gem 'capybara'
   gem 'factory_girl_rails'
+  gem 'database_cleaner', '1.5.0'
+
 end
 
 group :development do
