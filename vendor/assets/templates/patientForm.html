@@ -7,9 +7,9 @@
 		<div class="form-group">
 			<label for="inputLastName" class="col-sm-3 control-label custom" ><h3>Призвіще</h3></label>
 			<div class="col-sm-6">
-				<input type="text" name='last_name' class="form-control input-lg custom" id="inputLastName" ng-model='newClient.last_name' ng-minlength = 3 ng-maxlength = 20 ng-pattern='/^[а-яА-ЯІіЄє]+$/' required>
+				<input type="text" name='last_name' class="form-control input-lg custom" id="inputLastName" ng-model='newClient.last_name' ng-minlength = 2 ng-maxlength = 20 ng-pattern='/^[а-яА-ЯІіЄє]+$/' required>
 				<div  ng-show='form.last_name.$invalid && form.last_name.$dirty '>
-					<div ng-show='form.last_name.$error.minlength' class='animate custom'>Призвіще не може бути менше 3-ох символів</div>
+					<div ng-show='form.last_name.$error.minlength' class='animate custom'>Призвіще не може бути менше 2-ох символів</div>
 					<div ng-show='form.last_name.$error.maxlength' class='animate custom'>Призвіще має бути менше 20-и символів</div>
 					<div ng-show='form.last_name.$error.required' class='animate custom'>Слід ввести призвіще</div>
 					<div ng-show='form.last_name.$error.pattern' class='animate custom'>Слід використовувати кирилицю</div>
@@ -22,9 +22,9 @@
 		<div class="form-group">
 			<label for="inputFirstName" class="col-sm-3 control-label custom" ><h3>Ім'я</h3></label>
 			<div class="col-sm-6">
-				<input type="text" name='first_name' class="form-control input-lg custom" id="inputFirstName" ng-model='newClient.first_name' ng-minlength = 3 ng-maxlength = 20 ng-pattern='/^[а-яА-ЯІіЄє]+$/' required>
+				<input type="text" name='first_name' class="form-control input-lg custom" id="inputFirstName" ng-model='newClient.first_name' ng-minlength = 2 ng-maxlength = 20 ng-pattern='/^[а-яА-ЯІіЄє]+$/' required>
 				<div ng-show='form.first_name.$invalid && form.first_name.$dirty '>
-					<div ng-show='form.first_name.$error.minlength' class='animate  custom'>Ім'я не може бути менше 3-ох символів</div>
+					<div ng-show='form.first_name.$error.minlength' class='animate  custom'>Ім'я не може бути менше 2-ох символів</div>
 					<div ng-show='form.first_name.$error.maxlength' class='animate  custom'>Ім'я має бути менше 20-и символів</div>
 					<div ng-show='form.first_name.$error.required' class='animate  custom'>Слід ввести Ім'я</div>
 				</div>
@@ -73,7 +73,7 @@
         <option ng-repeat="town in towns" value="{{town.id}}">{{town.body}}</option>
       </select>
 			<div ng-show='form.town_id.$invalid && form.town_id.$dirty '>
-				<div ng-show='form.town_id.$error.minlength' class='animate custom'>Місто не може бути менше 3-ох символів</div>
+				<div ng-show='form.town_id.$error.minlength' class='animate custom'>Місто не може бути менше 2-ох символів</div>
 				<div ng-show='form.town_id.$error.maxlength' class='animate custom'>Місто має бути менше 20-и символів</div>
 				<div ng-show='form.town_id.$error.required' class='animate custom'>Слід вказати місто</div>
 			</div>
@@ -117,3 +117,8 @@
 	</div>
 </fieldset>
 </form>
+<script>
+	$(document).ready(function(){
+		$("#inputTelNum1").mask("000-000-00-00");
+	})
+</script>

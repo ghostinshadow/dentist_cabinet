@@ -96,11 +96,15 @@ myClinic.controller("MainController", function($scope, $location, $window, $time
             up_milk_nums: this.up_milk_nums,
             bottom_milk_nums: this.bottom_milk_nums
         };
-        var accumulate_replaced = work.teeth_nums.reduce(function(accumulator, el){
+        var accumulate_replaced = work.teeth_nums.reduce(function(accumulator, el) {
             Number.isInteger(el) ? accumulator.push([el]) : accumulator.push(teeth_dictionary[el]);
             return accumulator;
-        },[]);
-        work.teeth_nums = accumulate_replaced.reduce(function(a, b) { return a.concat(b);})
+        }, []);
+        if (accumulate_replaced.length > 0) {
+            work.teeth_nums = accumulate_replaced.reduce(function(a, b) {
+                return a.concat(b);
+            })
+        }
     }
 
     $scope.goHome = function(client) {

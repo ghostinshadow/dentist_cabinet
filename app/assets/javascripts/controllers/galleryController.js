@@ -21,6 +21,7 @@ myClinic.controller("galleryController", function($scope, $interpolate,
     $scope.photos = [];
 
     $scope.fetch_pictures = function() {
+        debugger;
         UserService.get_pictures($scope.selectedPatient.id, function(response) {
             $scope.photos = response.data;
         })

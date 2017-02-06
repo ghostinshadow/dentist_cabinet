@@ -13,6 +13,7 @@
 
 //= require jquery
 //= require jquery_ujs
+//= require jquery_mask.min
 //= require bootstrap-alert
 //= require twitter/bootstrap
 //= require bootstrap-filestyle.min

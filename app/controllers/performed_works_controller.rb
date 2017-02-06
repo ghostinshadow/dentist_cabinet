@@ -13,7 +13,8 @@ class PerformedWorksController < ApplicationController
   end
 
   def create
-  	creation_params = performed_work_params.merge(teeth_nums: params[:teeth_nums].uniq.map(&:to_s))
+    teeth_nums = params[:teeth_nums].uniq.map(&:to_s) if params[:teeth_nums]
+  	creation_params = performed_work_params.merge(teeth_nums: teeth_nums)
   	@performed = @appointment.performed_works.create(creation_params)
   	render json: @performed.information_for_rendering
   end

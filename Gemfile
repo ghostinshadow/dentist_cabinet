@@ -31,18 +31,12 @@ gem 'twitter-bootstrap-rails'
 gem 'angular_rails_csrf'
 gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
 gem 'angularjs-file-upload-rails', '~> 2.4.1'
-gem "rails_best_practices"
-gem "reek"
-gem "selenium-webdriver"
-# Use Redis adapter to run Action Cable in production
-# gem 'redis', '~> 3.0'
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
-
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
+gem 'jquery_mask_rails'
 
 group :development, :test do
+  gem "rails_best_practices"
+  gem "reek"
+  gem "selenium-webdriver"
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
   gem 'rspec-rails', '~> 3.5'

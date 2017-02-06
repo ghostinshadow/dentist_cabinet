@@ -11,7 +11,7 @@ myClinic.config(["$routeProvider",
             controller: "DictionariesController"
         }).
         when("/createForm", {
-            templateUrl: "assets/formCreate.html",
+            templateUrl: "assets/patientForm.html",
             controller: "FormController"
         }).
         when("/photoGallery", {
@@ -23,6 +23,7 @@ myClinic.config(["$routeProvider",
         });
     }
 ]);
+
 myClinic.filter('reverse', function() {
     return function(items) {
         if (items) {
