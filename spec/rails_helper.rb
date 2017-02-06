@@ -8,7 +8,9 @@ require 'rspec/rails'
 require 'capybara/rails'
 require 'capybara/rspec'
 require 'devise'
+require 'pry'
 
+Capybara.server_port = 3000
 
 ActiveRecord::Migration.maintain_test_schema!
 
@@ -71,4 +73,5 @@ RSpec.configure do |config|
   end
 
   config.include Warden::Test::Helpers
+  
 end

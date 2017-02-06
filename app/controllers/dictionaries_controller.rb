@@ -17,7 +17,7 @@ class DictionariesController < ApplicationController
   # POST /dictionaries.json
 
   def doctors_and_cities
-    doctor_dict, cities_dict = current_user.dictionaries.where(resource_type: ["Doctors", "Cities"])
+    cities_dict, doctor_dict = current_user.dictionaries.where(resource_type: ["Doctors", "Cities"])
     render json: {doctors: doctor_dict.words.select(:id, :body),
                   cities: cities_dict.words.select(:id, :body)}
   end

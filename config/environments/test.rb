@@ -21,10 +21,18 @@ config.eager_load = false
   config.action_controller.allow_forgery_protection = false
   config.action_mailer.perform_caching = false
 
-config.action_mailer.delivery_method = :test
+  config.action_mailer.delivery_method = :test
 
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
+
+  config.action_dispatch.default_headers.merge!(
+  {
+      'Access-Control-Allow-Origin' => '*',
+      'Access-Control-Allow-Methods' => 'POST, PUT, DELETE, GET, OPTIONS',
+      'Access-Control-Max-Age' => "1728000",
+     'Access-Control-Allow-Headers' =>'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+  })
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true

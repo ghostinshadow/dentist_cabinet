@@ -70,7 +70,7 @@
 .slider_photo {
     height: 40em;
     position: relative;
-    width: 66em;
+    width: 64em;
 
     -webkit-perspective: 1000px;
     perspective: 1000px;

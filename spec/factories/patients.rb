@@ -12,16 +12,18 @@ FactoryGirl.define do
     milk_teeth false
 
     factory :patient_mari do
-    	last_name "Петренко"
-    	first_name "Марія"
-    	association :word, factory: :doctor_word2
+      last_name "Петренко"
+      first_name "Марія"
+      association :word, factory: :doctor_word2
       birth_day "1991-12-27"
       association :town, factory: :town_word2
-    endP
+      endP
+
+
+    end
 
     factory :grown_up do
-			milk_teeth true
-		end
-
+      milk_teeth true
+    end
   end
 end

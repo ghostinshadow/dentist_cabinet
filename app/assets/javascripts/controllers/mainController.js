@@ -15,13 +15,6 @@ myClinic.controller("MainController", function($scope, $location, $window, $time
         });
     })
 
-    $scope.sighOut = function(){
-        UserService.destroy_session(function(response){
-            debugger;
-            // $window.open('/', '_self');
-        })
-    }
-
     $scope.showModal = function() {
         $scope.hideWorkForm();
         ModalService.showModal({
@@ -260,11 +253,11 @@ myClinic.controller("MainController", function($scope, $location, $window, $time
         if (confirm("Ви впевнені, що хочете видалити запис про виконану роботу?")) {
             UserService.delete_performed_work(work, function(response) {
                 Flash.create('success', "Запис успішно видалено");
+                $timeout(function() {
+                    $scope.selectAppointment($scope.selectedAppointment);
+                    $scope.paginationManage();
+                }, 1, true)
             });
-            $timeout(function() {
-                $scope.selectAppointment($scope.selectedAppointment);
-                $scope.paginationManage();
-            }, 1, true)
         }
     };
 
