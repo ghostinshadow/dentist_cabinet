@@ -1,6 +1,6 @@
 class PatientsController < ApplicationController
   respond_to :json
-  before_action :set_patient, only: [:update, :destroy]
+  before_action :set_patient, only: [:update, :destroy, :performed_works]
   # add cancan
 
   def index
@@ -26,6 +26,10 @@ class PatientsController < ApplicationController
   def destroy
     @patient.destroy
     render json: @patient.status_for_rendering
+  end
+
+  def performed_works
+    render json: @patient.performed_works
   end
 
   private

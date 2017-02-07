@@ -14,6 +14,7 @@ angular.module('myClinic')
         service.load_appointments = load_appointments;
         service.load_completed_work = load_completed_work;
         service.load_works_for_tooth = load_works_performed_on_tooth;
+        service.load_patients_completed_work = load_all_patients_completed_work;
         service.post_appointments_performed_work = post_appointments_performed_work;
         service.post_appointment = post_appointment;
         service.get_pictures = get_pictures_urls;
@@ -99,6 +100,11 @@ angular.module('myClinic')
 
         function load_completed_work(appointment, callback){
             get_request = params_constructor("/appointments/" + appointment.id + "/performed_works");
+            return $http(get_request).then(function(response){callback(response)}, handle_error);
+        }
+
+        function load_all_patients_completed_work(patient_id, callback){
+            get_request = params_constructor("/patients/" + patient_id + "/performed_works");
             return $http(get_request).then(function(response){callback(response)}, handle_error);
         }
 

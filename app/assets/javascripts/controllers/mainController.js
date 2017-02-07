@@ -153,16 +153,6 @@ myClinic.controller("MainController", function($scope, $location, $window, $time
         })
     };
 
-    $scope.findAllHealedTeeth = function(arr) {
-        var result = result || [];
-        angular.forEach(arr, function(elm) {
-            $scope.iterateOverArray(elm.worksDone, result);
-        })
-        $timeout(function() {
-            $scope.healedTeeth = result;
-        }, 0, true);
-    }
-
     $scope.isBeenHealed = function(elm) {
         if (elm && $scope.healedTeeth) {
             return ($scope.healedTeeth.indexOf(elm.toString()) == -1) ? false : true;
@@ -214,7 +204,9 @@ myClinic.controller("MainController", function($scope, $location, $window, $time
         UserService.load_appointments(client, function(response){
           $scope.appointments = response.data;
           $scope.paginationManage();
-          $scope.findAllHealedTeeth(client.appointments);
+        })
+        UserService.load_patients_completed_work(client.id, function(response){
+            $scope.findHealedTeeth(response.data);
         })
     };
 

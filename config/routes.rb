@@ -7,6 +7,9 @@ Rails.application.routes.draw do
     end
   end
   resources :patients , shallow: true do
+    member do
+      get :performed_works
+    end
     resources :appointments, shallow: true do
     	resources :performed_works
     end
