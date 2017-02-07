@@ -27,14 +27,16 @@ json_data_representation.each do |patient|
                     town_id: town_word.id)
   patient["appointments"].each do |appoint|
   	month, day, year = appoint["creationTime"].split("\s")
+    year, month, day = appoint["creationTime"].split("\s") if month.length == 4
     created_appointment = created_patient.appointments.create!(
       creation_time: Date.new(year.to_i, month.to_i, day.to_i)
     )
 
     appoint["worksDone"].each do |w_done|
       exact_dict = w_done["workType"] == "Терапія" ? therapy : ortodoncy
+      w_done["exactWork"].gsub!(/colasept/, "calasept")
       word_work = exact_dict.words.select{|w| w.body == w_done["exactWork"]}.first
-      
+      binding.pry unless word_work
       created_appointment.performed_works.create!(
         price: w_done["price"],
         word_id: word_work.id,
