@@ -107,8 +107,11 @@ myClinic.controller("MainController", function($scope, $location, $window, $time
         }
     }
 
-    $scope.goHome = function(client) {
+    $scope.goHomeWithUser = function(client) {
         $scope.go('/main');
+        $timeout(function() {
+            $scope.selectPatient(client);
+        }, 0, true);
     };
 
     $scope.isEmpty = function() {
@@ -132,7 +135,7 @@ myClinic.controller("MainController", function($scope, $location, $window, $time
 
     $scope.isSelectedPatient = function(client) {
         if ($scope.selectedPatient) {
-            return $scope.selectedPatient === client;
+            return $scope.selectedPatient.id === client.id;
         }
     };
 
@@ -269,7 +272,7 @@ myClinic.controller("MainController", function($scope, $location, $window, $time
 
     $scope.isSelectedAppointment = function(appoint) {
         if ($scope.selectedAppointment) {
-            return $scope.selectedAppointment === appoint;
+            return $scope.selectedAppointment.id === appoint.id;
         }
     };
 

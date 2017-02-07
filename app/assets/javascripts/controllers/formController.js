@@ -11,7 +11,7 @@ myClinic.controller("FormController", function($scope, UserService, Flash) {
                 $scope.parseErrorsFromResponse(response);
                 Flash.create('info', "Дані не вдалось надіслати")
             } else {
-                $scope.goHome(response.data);
+                $scope.goHomeWithUser(response.data);
                 $scope.refreshAppointList(response.data);
                 Flash.create('success',"Запис успішно додано")
             }
@@ -24,7 +24,7 @@ myClinic.controller("FormController", function($scope, UserService, Flash) {
                 $scope.parseErrorsFromResponse(response);
                 Flash.create('info', "Дані не вдалось оновити")
             } else {
-                $scope.goHome(response.data);
+                $scope.goHomeWithUser(response.data);
                 Flash.create('success',"Запис успішно оновлено")
             }
         })
