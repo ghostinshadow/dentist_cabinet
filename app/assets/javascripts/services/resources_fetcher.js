@@ -115,9 +115,8 @@ angular.module('myClinic')
 
         function post_appointments_performed_work(appointment_id, performed_work, callback){
             post_request = post_request_constructor("/appointments/" + appointment_id + "/performed_works", performed_work);
-            return $http(post_request).then(function (response) {
-                callback(response);
-            }, handle_error);
+
+            return $http(post_request);
         }
 
         function post_appointment(patient_id, appointment, callback){
