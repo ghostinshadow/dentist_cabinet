@@ -72,7 +72,7 @@
 				<div class="form-group" ng-if='workDone.dictionary_id'>
 					<label for="inputExactWork" class="col-sm-3 control-label custom"><h4>Вид робіт</h4></label>
 					<div class="col-sm-6">
-						<select multiple name='work_ids' class="form-control input-lg custom" ng-model='workDone.word_ids' required>
+						<select size="{{work_specific_dictionaries[workDone.dictionary_id].length + 1}}" style="height: 100%;" multiple name='work_ids' class="form-control input-lg custom" ng-model='workDone.word_ids' required>
 						  <option value="">Оберіть вид робіт</option>
 						  <option ng-repeat="work in work_specific_dictionaries[workDone.dictionary_id]"
 						   value="{{work.id}}">{{work.body}}</option>
