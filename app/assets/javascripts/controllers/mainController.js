@@ -261,7 +261,17 @@ myClinic.controller("MainController", function ($scope, $location, $window, $tim
     };
 
     $scope.displayBirthday = function(birth_day){
-        return (birth_day instanceof Date) ? birth_day.toISOString().substring(0, 10) : birth_day;
+        var temp_date = null;
+
+        if (birth_day instanceof Date) {
+            temp_date = birth_day;
+        } else {
+            temp_date = new Date(birth_day);
+        }
+
+        temp_date.setDate(temp_date.getDate() + 1);
+
+        return temp_date.toISOString().substring(0, 10);
     }
 
     $scope.deleteAppoint = function(appoint, client) {
