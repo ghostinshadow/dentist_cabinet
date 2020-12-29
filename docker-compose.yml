@@ -1,0 +1,43 @@
+version: '2'
+
+services:
+  postgres:
+    image: postgres:9.6
+    env_file: .env
+    volumes:
+      - postgres-api-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  app:
+    stdin_open: true
+    env_file: .env
+    build: .
+    image: dentist/cabinet
+    volumes:
+      - .:/app
+      - image-storage:/app/storage
+    links:
+      - postgres:postgres
+    ports:
+        - "3001:3000"
+    depends_on:
+      - postgres
+    command: "rails s -p 3000 -b 0.0.0.0"
+    environment:
+      PG_DB_HOST: postgres
+      PG_DB_PORT: 5432
+  cron_backup:
+    build:
+      context: .
+      dockerfile: Dockerfile-cron
+    depends_on:
+      - postgres
+    links:
+      - postgres:postgres
+
+volumes:
+  postgres-api-data:
+    external: true
+  image-storage:
+    external: true

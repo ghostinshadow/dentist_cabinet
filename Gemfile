@@ -32,6 +32,10 @@ gem 'angular_rails_csrf'
 gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
 gem 'angularjs-file-upload-rails', '~> 2.4.1'
 gem 'jquery_mask_rails'
+gem 'whenever', require: false
+gem 'google-api-client', require: false
+gem 'backup', require: false
+gem 'net-ssh', '<= 2.5.2'
 
 group :development, :test do
   gem "rails_best_practices"
