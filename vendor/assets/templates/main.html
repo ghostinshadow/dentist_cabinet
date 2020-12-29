@@ -72,13 +72,13 @@
 				<div class="form-group" ng-if='workDone.dictionary_id'>
 					<label for="inputExactWork" class="col-sm-3 control-label custom"><h4>Вид робіт</h4></label>
 					<div class="col-sm-6">
-						<select name='work_id' class="form-control input-lg custom" ng-model='workDone.word_id' required>
+						<select size="{{work_specific_dictionaries[workDone.dictionary_id].length + 1}}" style="height: 100%;" multiple name='work_ids' class="form-control input-lg custom" ng-model='workDone.word_ids' required>
 						  <option value="">Оберіть вид робіт</option>
 						  <option ng-repeat="work in work_specific_dictionaries[workDone.dictionary_id]"
 						   value="{{work.id}}">{{work.body}}</option>
 						</select>
-						<div ng-show='form.word_id.$invalid && form.word_id.$dirty '>
-							<div ng-show='form.word_id.$error.required' class='custom'>Слід вказати вид робіт</div>
+						<div ng-show='form.word_ids.$invalid && form.word_ids.$dirty '>
+							<div ng-show='form.word_ids.$error.required' class='custom'>Слід вказати вид робіт</div>
 						</div>
 					</div>
 				</div>
@@ -123,7 +123,7 @@
 				<div class="form-group" ng-init="form.$setDirty()">
 					<label for="inputPrice" class="col-sm-3 control-label custom"><h4>Ціна</h4></label>
 					<div class="col-sm-5">
-						<input type="number" name='price' class="form-control input-lg custom" id="inputPrice" ng-model='workDone.price' ng-pattern='/^[0-9]+$/' required>
+						<input type="number" name='price' class="form-control input-lg custom" id="inputPrice" ng-model='workDone.price' ng-pattern='/^[0-9]+$/'>
 						<div ng-show='form.price.$invalid && form.price.$dirty '>
 							<div ng-show='form.price.$error.required' class='custom'>Слід вказати ціну</div>
 						</div>

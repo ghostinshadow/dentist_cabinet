@@ -1,6 +1,6 @@
 var myClinic = angular.module("myClinic");
 
-myClinic.controller("MainController", function($scope, $location, $window, $timeout, Pagination, UserService, Flash, ModalService) {
+myClinic.controller("MainController", function ($scope, $location, $window, $timeout, Pagination, UserService, Flash, ModalService, $q) {
     UserService.get_patient_creation_dictionaries(function(response){
         $scope.doctors = response.data.doctors;
         $scope.towns = response.data.cities;
@@ -78,15 +78,43 @@ myClinic.controller("MainController", function($scope, $location, $window, $time
 
     $scope.addWork = function(work) {
         this.replace_placeholders(work);
-        UserService.post_appointments_performed_work(this.selectedAppointment.id, work, function(response) {
-            if (response.data["error"]) {
+        var requests = [];
+        var word_ids = work.word_ids;
+        var selected_appointment_id = this.selectedAppointment.id;
+        delete work.word_ids;
+
+        angular.forEach(word_ids, function(word_id){
+            var data = {
+                dictionary_id: work.dictionary_id,
+                word_id: word_id,
+                teeth_nums: work.teeth_nums
+            };
+
+            requests.push(
+                UserService.post_appointments_performed_work(
+                    selected_appointment_id,
+                    data,
+                    function(response) {
+                      response.data["error"]
+                    }
+                )
+            )
+        })
+
+        $q.all(requests).then(function(responses){
+            var error = responses.find(function(response){
+                response.status !== 200;
+            })
+
+            if (error) {
                 Flash.create('info', "Дані не вдалось зберегти")
             } else {
                 Flash.create('success', "Запис успішно створено")
             }
+
             $scope.triggerWorkForm($scope.selectedAppointment);
             $scope.selectAppointment($scope.selectedAppointment);
-        })
+        });
     }
 
     $scope.replace_placeholders = function(work) {
@@ -233,7 +261,17 @@ myClinic.controller("MainController", function($scope, $location, $window, $time
     };
 
     $scope.displayBirthday = function(birth_day){
-        return (birth_day instanceof Date) ? birth_day.toISOString().substring(0, 10) : birth_day;
+        var temp_date = null;
+
+        if (birth_day instanceof Date) {
+            temp_date = birth_day;
+        } else {
+            temp_date = new Date(birth_day);
+        }
+
+        temp_date.setDate(temp_date.getDate() + 1);
+
+        return temp_date.toISOString().substring(0, 10);
     }
 
     $scope.deleteAppoint = function(appoint, client) {

@@ -44,6 +44,5 @@ json_data_representation.each do |patient|
         teeth_nums: w_done["teeth_nums"]
         )
     end
-
   end
 end
